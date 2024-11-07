@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    <div>
+        <input type="text" id="title" placeholder="Todotitle" /><br />
+        <input type="text" id="description" placeholder="title" /><br />
+        <!-- <button onclick="addtodo()">Add to do</button> -->
+        <div id="container"></div>
+    </div>
+    <script>
+        let globalid = 1;
+        function markAsDone(todoid) {
+            const parent = document.getElementById(todoid);
+            if (parent) {
+                parent.children[2].innerHTML = "Done!"; 
+            }
+        }
+        function createchild(title, description, id) {
+            const child = document.createElement("div");
+            const firstgrandparent = document.createElement("div");
+            firstgrandparent.innerHTML = title;
+            const secondgrandparent = document.createElement("div");
+            secondgrandparent.innerHTML = description;
+            const thirdparent = document.createElement("button");
+            thirdparent.innerHTML = "Mark as done";
+            thirdparent.onclick = function () {
+                markAsDone(id);
+            };
+            child.appendChild(firstgrandparent);
+            child.appendChild(secondgrandparent);
+            child.appendChild(thirdparent);
+            child.setAttribute("id", id);
+            return child;
+        }
+        function updatedomacctoState(state){
+            const parent= document.getElementById("container");
+            parernt.innerHTML="";
+            for(let i=0;i<state.length;i++){
+                const child=createchild(state[i].title,state[i].description,state[i].id);
+                parent.appendChild(child);
+            }
+        }
+        window.setInterval(async function() {
+            const res=await fetch("https://sum-server.100xdevs.com/todos");
+            const json=await res.json();
+            updatedomacctoState(json.todos);
+        },5000)
+    </script>
+
+</body>
+
+</html>
