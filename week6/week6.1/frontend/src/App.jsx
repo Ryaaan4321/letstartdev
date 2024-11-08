@@ -1,12 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
+  const [views, setviews] = useState(0);
+  useEffect(() => {
+    const id=setInterval(()=>{
+      setviews((views)=>views+Math.floor(Math.random()*10));
+    },1000);
+    return ()=>clearInterval(id)
+  },[]);
+  return <>(
+    <MoviesViewsRelatime
+    title={"suraj chuda hai"}
+    views={views}
+    releaseDate={"14 February 2024"}
+    />
+  )</>;
+}
+
+/*
+self learnings to learn the react.memo and how it works
+
+*/
+
+function Movie({ title, releaseDate }) {
+  console.log("Movie rendered");
   return (
-    <>
-      <HeaderWithButton />
-      <br />
-      <Header title="my name is dooba dooba"></Header>
-    </>
+    <div>
+      <div>Movie title:{title}</div>
+      <div>Relase Data:{releaseDate}</div>
+    </div>
+  );
+}
+
+function MoviesViewsRelatime({ title, releaseDate, views }) {
+  return (
+    <div>
+      <Movie title={title} releaseDate={releaseDate}></Movie>
+      Movie Views:{views}
+    </div>
   );
 }
 
