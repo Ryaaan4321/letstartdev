@@ -6,20 +6,35 @@ import axios from "axios";
 import { useEffect } from "react";
 
 function App() {
+  const [id, setid] = useState(1);
   return (
     <div>
-      {/* <Todo id={4}/> */}
-      <button ></button>
+      <button
+        onClick={function () {
+          setid(1);
+        }}
+      >
+        1
+      </button>
+      <button onClick={function(){
+        setid(2)
+      }}>2</button>
+      <button onClick={function(){
+        setid(3)
+      }}>3</button>
+     <Todo id={id}/>
     </div>
   );
 }
 
-function Todo({id}) {
+function Todo({ id }) {
   const [todos, settodos] = useState([]);
   useEffect(() => {
-    axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`).then((response) => {
-      settodos([response.data]);
-    });
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((response) => {
+        settodos([response.data]);
+      });
   }, [id]);
   return (
     <div>
