@@ -1,11 +1,21 @@
 import { useState, useEffect } from "react";
 
+let i = 0;
 function App() {
+  const [count, setcount] = useState(0);
+  function handleclick() {
+    setcount = count + 1;
+    // console.log(setcount);
+  }
   return (
     <div>
-      <CardWrapper innerComponent={TextComponent} />
+      <button onClick={handleclick}>Button</button>
+      <Header1 title={count}></Header1>
     </div>
   );
+}
+function Header1({ title }) {
+  return <div>{title}</div>;
 }
 
 function CardWrapper({ innerComponent: InnerComponent }) {
@@ -20,9 +30,7 @@ function TextComponent() {
   return <h1>Hi there</h1>;
 }
 
-
-
-let cnt=4
+let cnt = 4;
 function plpp() {
   const [todos, settodos] = useState([
     {
@@ -45,8 +53,8 @@ function plpp() {
     settodos([
       ...todos,
       {
-        id: cnt+1,
-        title: Math.random()*10,
+        id: cnt + 1,
+        title: Math.random() * 10,
         descreption: Math.random(),
       },
     ]);

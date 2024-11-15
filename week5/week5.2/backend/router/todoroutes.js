@@ -1,6 +1,5 @@
 const express = require('express');
 const { Todo } = require('../databse/db');
-const CircularJSON = require('circular-json');
 const { checkUser } = require('../middleware/usermiddleware')
 const router = express.Router();
 
