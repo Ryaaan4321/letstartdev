@@ -12,3 +12,5 @@ Currently, two official plugins are available:
 
 
 <!-- https://www.robinwieruch.de/react-router-nested-routes/ -->
+
+<!-- https://medium.com/@datasciencenexus/unlocking-the-power-of-nested-routes-in-react-a-comprehensive-guide-d6ebd234dbb9 -->
