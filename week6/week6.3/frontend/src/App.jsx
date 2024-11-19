@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -23,8 +23,10 @@ function App() {
       });
     }, 5000);
   }, []);
-  const totalReturn=exchange1Data.return+exchange2Data.return;
-  const incometax=(totalReturn+bankdata.income)*0.3;
+  const cryptoReturns=useMemo(()=>{
+    return exchange1Data.return +exchange2Data.return;
+  })
+  const incometax=(cryptoReturns+bankdata.income)*0.3;
   return <>
   <div>
     hi there your income tax is {incometax}
