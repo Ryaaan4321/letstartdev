@@ -23,15 +23,17 @@ function App() {
       });
     }, 5000);
   }, []);
-  const cryptoReturns=useMemo(()=>{
-    return exchange1Data.return +exchange2Data.return;
-  })
-  const incometax=(cryptoReturns+bankdata.income)*0.3;
-  return <>
-  <div>
-    hi there your income tax is {incometax}
-  </div>
-  </>
+  const cryptoReturns = useMemo(() => {
+    return exchange1Data.return + exchange2Data.return;
+  }, [exchange1Data, exchange2Data]);
+
+  
+  const incometax = (cryptoReturns + bankdata.income) * 0.3;
+  return (
+    <>
+      <div>hi there your income tax is {incometax}</div>
+    </>
+  );
 }
 
 export default App;
