@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Assignment2 from "./Assignment2";
+import Assignment3 from "./Assignment3";
+import Assignment4 from "./Assignment4";
+import Assignment5 from "./Assignment5";
 
 function App() {
   const [exchange1Data, setexchnage1Data] = useState({});
@@ -32,8 +35,10 @@ function App() {
   const incometax = (cryptoReturns + bankdata.income) * 0.3;
   return (
     <>
-    <Assignment2/>
+    {/* <Assignment3/> */}
       {/* <div>hi there your income tax is {incometax}</div> */}
+      {/* <Assignment4/> */}
+      <Assignment5/>
     </>
   );
 }
