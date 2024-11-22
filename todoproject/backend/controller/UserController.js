@@ -34,13 +34,12 @@ export const usignup = async function (req, res) {
         })
     }
 
-}
+};
 export const usginin = async function (req, res) {
     try {
         const { username, email, password } = req.body;
         const validUser = await User.findOne({ username });
         const validEmail = await User.findOne({ email });
-
         if (!validUser || !validEmail) {
             return res.status(404).json({
                 msg: "Invalid credentials",
