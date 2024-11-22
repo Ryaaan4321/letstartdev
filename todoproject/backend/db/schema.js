@@ -1,16 +1,16 @@
-import mongoose  from "mongoose";
+import mongoose, { Schema }  from "mongoose";
 
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
     firstname: {
         type: String,
         required: true,
-        trim: true,
+        // trim: true,
     },
-    secondname: {
+    lastname: {
         type: String,
         required: true,
-        trim: true
+        // trim: true
     },
     username: {
         type: String,
@@ -23,13 +23,13 @@ const UserSchema = new Schema({
         required: true,
         lowercase: true,
         unique: true,
-        match: [/.+@.+\..+/, 'please enter the valid email address'],
+        // match: [/.+@.+\..+/, 'please enter the valid email address'],
     },
     password: {
         type: String,
         required: true,
-        minlength: 8,
-        select: false
+        // minlength: 8,
+        // select: false
     },
 
 }, { timestamps: true })
