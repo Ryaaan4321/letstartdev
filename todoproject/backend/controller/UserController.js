@@ -37,31 +37,36 @@ export const usignup = async function (req, res) {
 }
 export const usginin = async function (req, res) {
     try {
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
+        const { username, email, password } = req.body;
+        const validUser = await User.findOne({ username });
+        const validEmail = await User.findOne({ email });
 
-        const validUser = await User.findOne({ username: username });
-        const validEmail = await User.findOne({ email: email });
-        const validPassword = await bcryptjs.compare(password,validUser.password);
-
-        if (!validEmail || !validUser || !validPassword) {
-            res.status(404).json({
-                msg: "invalid credentials"
-            })
+        if (!validUser || !validEmail) {
+            return res.status(404).json({
+                msg: "Invalid credentials",
+            });
         }
-        const token = jwt.sign({ id: validUser._id },process.env.JWT);
-        const expiry_Date = new Date(Date.now() + 3600000);
+        const isPasswordValid = await bcryptjs.compare(password, validUser.password);
+        if (!isPasswordValid) {
+            return res.status(404).json({
+                msg: "Invalid credentials",
+            });
+        }
+        const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const expiry_Date = new Date(Date.now() + 3600000); 
         const { password: hashedPassword, ...userdata } = validUser._doc;
         res.cookie('access_token', token, {
             httpOnly: true,
-            expires: expiry_Date
-        }).status(200).json(userdata);
+            expires: expiry_Date,
+        })
+        .status(200)
+        .json(userdata);
 
     } catch (error) {
+        console.error('Signin Error:', error.message);
         res.status(500).json({
-            msg: error
-        }
-        )
+            msg: 'An error occurred during signin',
+            error: error.message,
+        });
     }
-}
+};

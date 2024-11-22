@@ -10,10 +10,9 @@ mongoose.connect(process.env.MONGO)
         console.log("db is connected")
     })
 
+app.use(express.json());
 
+app.use('/user', userrouter);
 app.listen(3000, () => {
     console.log(' hmlo hmlo ');
 })
-app.use(express.json());
-
-app.use('/user',userrouter);
