@@ -129,6 +129,7 @@ function App() {
   );
 }
 function Count({setCount }) {
+  console.log("count rerender");
   return (
     <>
       <CountRender/>
