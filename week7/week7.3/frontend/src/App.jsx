@@ -29,7 +29,7 @@ function MainApp() {
     return jobcount + Notificationcount + networkNotification + messagecount;
   }, [jobcount, messagecount, Notificationcount, networkNotification]);
 
-  const totalNotificationUsingSelector=useRecoilValue(totalNotificationSelector);
+  const totalNotificationUsingSelector=useRecoilValue(totalNotificationSelector);// using the selector check the atom.jsx
   return (
     <>
       <button>Home</button>
