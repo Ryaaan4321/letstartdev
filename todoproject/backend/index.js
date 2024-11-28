@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userrouter from './routes/userrouter.js'
 const app = express();
