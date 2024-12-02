@@ -52,8 +52,8 @@ export const usignin = async function (req, res) {
                 msg: "Invalid credentials",
             });
         }
-        const secret_key=process.env.JWT_SECRET || "bhadwe"
-        const token = jwt.sign({ id: validUser._id }, JWT_SECRET, { expiresIn: '1h' });
+        const secret_key=process.env.JWT_SECRET || "bhadwesecretkeydekhega"
+        const token = jwt.sign({ id: validUser._id }, secret_key, { expiresIn: '1h' });
         console.log(token);
         const expiry_Date = new Date(Date.now() + 3600000); 
         const { password: hashedPassword, ...userdata } = validUser._doc;
