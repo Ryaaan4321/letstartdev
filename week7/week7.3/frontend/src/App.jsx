@@ -91,7 +91,7 @@ function TextInput() {
   );
 }
 function CharacterCount() {
-  const count = useRecoilValue(charCountState); // Get the computed character count
+  const count = useRecoilValue(charCountState); 
 
   return <p>Character Count: {count}</p>;
 }
