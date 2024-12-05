@@ -16,15 +16,19 @@ function Login() {
             className="border-black text-black  black py-2 px-4 rounded-2xl"
           ></input>
           <br></br>
-          Sign in As:
         </div>
-        <div className="flex justify-between space-x-2">
+        <div className="flex justify-between space-x-2 mt-3">
+          <h1 className="text-2xl">Sign In As:</h1>
           <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Admin
           </button>
           <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             User
           </button>
+        </div>
+        <div className="flex justify-around space-x-3 text-1xl">
+        <h3>Dont have an Account ?</h3>
+        <span className="text-blue-900">SignUp</span>
         </div>
       </div>
     </>
