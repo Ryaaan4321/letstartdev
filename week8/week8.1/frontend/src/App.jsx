@@ -1,11 +1,11 @@
 function App() {
   return (
     <>
-      {/* <div className="flex justify-around">
+      <div className="flex justify-around">
         <div style={{ color: "royalblue" }}>hmlo hmlo</div>
         <div style={{ color: "saddlebrown" }}>Hmlo hmlo</div>
         <div style={{ color: "red" }}>hmlo</div>
-      </div> */}
+      </div>
       <div className="grid-cols-1 md:grid md:grid-cols-3 ">
         <div
           style={{ color: "royalblue" }}
