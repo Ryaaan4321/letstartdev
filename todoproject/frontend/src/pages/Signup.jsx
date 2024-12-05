@@ -1,7 +1,7 @@
 function Signup() {
   return (
     <>
-      <div className="bg-slate-100 flex flex-col justify-items-center ">
+      <div className="bg-slate-100 flex flex-col items-center ">
         <p className="text-black-800 text-4xl "> Signup</p>
         <div className="flex flex-col mt-4 space-y-3 w-96">
           <input
@@ -12,24 +12,23 @@ function Signup() {
           <input
             type="text"
             placeholder="Second-Name"
-            className="border-black text-black  black py-2 px-4 rounded-2xl"
+            className="border-black text-black  py-2 px-4 rounded-2xl"
           ></input>
           <input
             type="text"
             placeholder="Username"
-            className="border-black text-black  black py-2 px-4 rounded-2xl"
+            className="border-black text-black  py-2 px-4 rounded-2xl"
           ></input>
           <input
             type="email"
             placeholder="Email"
-            className="border-black text-black  black py-2 px-4 rounded-2xl"
+            className="border-black text-black py-2 px-4 rounded-2xl"
           ></input>
           <input
             type="password"
             placeholder="Password"
-            className="border-black text-black  black py-2 px-4 rounded-2xl"
+            className="border-black text-black  py-2 px-4 rounded-2xl"
           ></input>
-          
         </div>
         <div className="flex-col justify-between space-x-2 mt-3">
           <h1 className="text-2xl">Sign In As:</h1>
