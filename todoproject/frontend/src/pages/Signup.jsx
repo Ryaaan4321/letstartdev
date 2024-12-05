@@ -39,7 +39,7 @@ function Signup() {
             User
           </button>
         </div>
-        <div className="flex-col justify-around space-x-3 text-1xl">
+        <div className="flex justify-around space-x-3 text-1xl">
           <h3>Dont have an Account ?</h3>
           <span className="text-blue-900">SignUp</span>
         </div>
