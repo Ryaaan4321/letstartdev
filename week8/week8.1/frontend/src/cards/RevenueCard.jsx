@@ -2,10 +2,10 @@ function RevenueCard({ title, amount, order }) {
   return (
     <>
       <div className="bg-white rounded shadow-md p-4">
-        <div className="text-gray-500 flex">
+        <div className="text-gray-500 flex justify-center flex-col">
           <div className="flex">
             <div>{title}</div>
-            <div className="flex justify-center flex-col">
+            <div className="ml-1 pt-0 flex justify-center flex-col">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
