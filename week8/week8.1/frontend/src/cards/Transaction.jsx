@@ -17,7 +17,7 @@ function Transaction() {
           </button>
         </div>
         <div className="col-span-2 pt-6">
-          <div className="flex justify-between">
+          <div className="flex justify-between ">
             <div>
               <input type="text" placeholder="Order Id or Transaction Id" />
             </div>
