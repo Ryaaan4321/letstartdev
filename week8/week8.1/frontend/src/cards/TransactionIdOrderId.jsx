@@ -1,16 +1,65 @@
-function TransactionIdOrderId(){
-    return (
-        <>
-        <div className="pt-3 bg-white shadow-md">
-            <div className="grid grid-cols-5 bg-gray-300 text-1xl font-medium pt-4 pb-4" id="header">
-                <div className="col-span-1">Order</div>
-                <div className="col-span-1">Status</div>
-                <div className="col-span-1">Transaction Id</div>
-                <div className="col-span-1">Refund Date</div>
-                <div className="col-span-1">Total Amount</div>
-            </div>
-        </div>
-        </>
-    )
+function TransactionIdOrderId() {
+  return (
+    <>
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                OrderId
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Status
+              </th>
+              <th scope="col" class="px-6 py-3">
+                TransactionId
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Refund Date
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Total Amount
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b ">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium whitespace-nowrap"
+              >
+                Apple MacBook Pro 17"
+              </th>
+              <td class="px-6 py-4">Silver</td>
+              <td class="px-6 py-4">Laptop</td>
+              <td class="px-6 py-4">$2999</td>
+            </tr>
+            <tr class="bg-white border-b  dark:border-gray-700">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+              >
+                Microsoft Surface Pro
+              </th>
+              <td class="px-6 py-4">White</td>
+              <td class="px-6 py-4">Laptop PC</td>
+              <td class="px-6 py-4">$1999</td>
+            </tr>
+            <tr class="bg-white ">
+              <th
+                scope="row"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
+              >
+                Magic Mouse 2
+              </th>
+              <td class="px-6 py-4">Black</td>
+              <td class="px-6 py-4">Accessories</td>
+              <td class="px-6 py-4">$99</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
 }
-export default TransactionIdOrderId
+export default TransactionIdOrderId;
