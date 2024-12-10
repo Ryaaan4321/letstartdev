@@ -2,8 +2,8 @@ function TransactionIdOrderId() {
   return (
     <>
       <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50  ">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-900 ">
+          <thead class="text-xs text-gray-900 uppercase bg-gray-50 ">
             <tr>
               <th scope="col" class="px-6 py-3">
                 OrderId
@@ -12,7 +12,7 @@ function TransactionIdOrderId() {
                 Status
               </th>
               <th scope="col" class="px-6 py-3">
-                TransactionId
+                Transaction Id
               </th>
               <th scope="col" class="px-6 py-3">
                 Refund Date
@@ -24,37 +24,76 @@ function TransactionIdOrderId() {
           </thead>
           <tbody>
             <tr class="bg-white border-b ">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium whitespace-nowrap"
-              >
-                Apple MacBook Pro 17"
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                13245632
               </th>
-              <td class="px-6 py-4">Silver</td>
-              <td class="px-6 py-4">Laptop</td>
-              <td class="px-6 py-4">$2999</td>
+              <td class="px-6 py-4">
+                <div class="flex items-center">
+                  <span className="rounded-full bg-red-900 h-2 w-2"></span>
+                  <span class="ml-2">Rejected</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-800 font-semibold">12345371</td>
+              <td class="px-6 py-4">Today 08:45</td>
+              <td class='px-6 py-4'>$1234</td>
             </tr>
-            <tr class="bg-white border-b  dark:border-gray-700">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
-              >
-                Microsoft Surface Pro
+            <tr class="bg-white border-b ">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                14567272
               </th>
-              <td class="px-6 py-4">White</td>
-              <td class="px-6 py-4">Laptop PC</td>
-              <td class="px-6 py-4">$1999</td>
+              <td class="px-6 py-4">
+                <div class="flex items-center">
+                  <span className="rounded-full bg-green-900 h-2 w-2"></span>
+                  <span class="ml-2">Accepted</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-800 font-semibold">16546464</td>
+              <td class="px-6 py-4">Today 08:45</td>
+              <td class='px-6 py-4'>$1234</td>
             </tr>
-            <tr class="bg-white ">
-              <th
-                scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
-              >
-                Magic Mouse 2
+            <tr class="bg-white border-b ">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                14567272
               </th>
-              <td class="px-6 py-4">Black</td>
-              <td class="px-6 py-4">Accessories</td>
-              <td class="px-6 py-4">$99</td>
+              <td class="px-6 py-4">
+                <div class="flex items-center">
+                  <span className="rounded-full bg-green-900 h-2 w-2"></span>
+                  <span class="ml-2">Accepeted</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-800 font-semibold">89564746</td>
+              <td class="px-6 py-4">Today 08:45</td>
+              <td class='px-6 py-4'>$1234</td>
+            </tr>
+            <tr class="bg-white border-b ">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                14567272
+              </th>
+              <td class="px-6 py-4">
+                <div class="flex items-center">
+                  <span className="rounded-full bg-red-900 h-2 w-2">
+                    
+                  </span>
+                  <span class="ml-2">Rejected</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-800 font-semibold">90874521</td>
+              <td class="px-6 py-4">Today 08:45</td>
+              <td class='px-6 py-4'>$1234</td>
+            </tr>
+            <tr class="bg-white border-b ">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                14567272
+              </th>
+              <td class="px-6 py-4">
+                <div class="flex items-center">
+                  <span className="rounded-full bg-red-900  h-2 w-2"></span>
+                  <span class="ml-2">Rejected</span>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-gray-800 font-semibold">76453212</td>
+              <td class="px-6 py-4">Today 08:45</td>
+              <td class='px-6 py-4'>$1234</td>
             </tr>
           </tbody>
         </table>
