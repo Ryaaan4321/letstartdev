@@ -37,5 +37,16 @@ router.post('/signup', async (req, res) => {
     token: token
   })
 });
+router.post('/signin',async(req,res)=>{
+  const {username,password}=req.body;
+  const validUser=await User.findOne({username:username});
+  const validPassword=await User.findOne({password:password});
+  if(!validPassword || !validUser){
+    return res.status(404).json({
+      msg:"invalid credentials"
+    })
+  }
+  
+})
 
 export default router;
