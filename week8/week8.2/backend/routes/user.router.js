@@ -7,13 +7,13 @@ const router = expres.Router();
 
 const signupSchema = zod.object({
   firstname: zod.string(),
-  secondname: zod.string(),
+  lastname: zod.string(),
   username: zod.string(),
   password: zod.string()
 })
 
 router.post('/signup', async (req, res) => {
-  const { firstname, secondname, username, password } = req.body;
+  const { firstname, lastname, username, password } = req.body;
   const { success } = signupSchema.safeParse(req.body);
   if (!success) {
     res.status(501).json({
@@ -34,7 +34,7 @@ router.post('/signup', async (req, res) => {
   console.log(token);
   res.json({
     msg: "user created succesfully",
-    token:token
+    token: token
   })
 });
 
