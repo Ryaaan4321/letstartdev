@@ -33,7 +33,8 @@ router.post('/signup', async (req, res) => {
   }, process.env.JWT_SECRET);
   console.log(token);
   res.json({
-    msg: "user created succesfully"
+    msg: "user created succesfully",
+    token:token
   })
 });
 
