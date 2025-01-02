@@ -2,6 +2,7 @@ import expres from 'express';
 import zod from 'zod'
 import { User } from '../db/User.js'
 import jwt from 'jsonwebtoken'
+import { Account } from '../db/Account.js';
 
 const router = expres.Router();
 
@@ -26,6 +27,12 @@ router.post('/signup', async (req, res) => {
       msg: "email already taken/Inputs are inavlid"
     })
   }
+  const userid=user._id;
+
+  await Account.create({
+    userId:userid,
+    balance:1*Math.random()*1000,
+  })
   const newuser = await User.create(req.body);
   console.log(newuser);
   const token = jwt.sign({
@@ -49,9 +56,9 @@ router.post('/signin', async (req, res) => {
   res.status(201).json(validUser);
 
 })
-router.get("/allusers",async(req,res)=>{
-  const users=await User.find({});
-  res.json({users});
+router.get("/allusers", async (req, res) => {
+  const users = await User.find({});
+  res.json({ users });
 })
 router.get("/bulk", async (req, res) => {
   const filter = req.query.filter || "";

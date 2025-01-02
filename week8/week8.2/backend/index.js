@@ -1,6 +1,7 @@
 import express from 'express'
 import authrouter from './routes/auth.router.js'
 import userrouter from './routes/user.router.js'
+import accountrouter from './routes/account.router.js'
 import mongoose from 'mongoose';
 import dotnev from 'dotenv'
 dotnev.config();
@@ -10,6 +11,7 @@ const app=express();
 app.use(express.json());
 app.use('/api/v1',authrouter);
 app.use('/api/v2',userrouter);
+app.use('/api/v3',accountrouter);
 
 const connecttoDatabse=async()=>{
     try{
