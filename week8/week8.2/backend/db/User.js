@@ -18,4 +18,6 @@ const UserSchema = new mongoose.Schema({
         required: true
     }
 })
+
+// account js k schema yahan p likh k dekhan agr kam na kre to
 export const User = mongoose.model('User', UserSchema);
