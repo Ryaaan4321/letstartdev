@@ -62,7 +62,6 @@ router.get("/allusers", async (req, res) => {
 })
 router.get("/bulk", async (req, res) => {
   const filter = req.query.filter || "";
-
   const users = await User.find({
     $or: [
       {
@@ -84,19 +83,18 @@ router.get("/bulk", async (req, res) => {
 })
 router.put('/update/:id', async (req, res) => {
   const id = req.params.id;
-  console.log(req.body);
-  try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, {firstName:req.body}, {
-      new: true,
-    });
-    if (!updatedUser) {
-      console.log('No document found with ID:', id);
-      return res.status(404).json({
-        msg: 'User not found',
-      });
-    }
+  console.log('Request Body:', req.body);
 
-    console.log('Updated User:', updatedUser);
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      req.body, 
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
 
     res.status(200).json({
       msg: 'User updated successfully',
@@ -110,5 +108,6 @@ router.put('/update/:id', async (req, res) => {
     });
   }
 });
+
 
 export default router;
