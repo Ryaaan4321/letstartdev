@@ -3,6 +3,7 @@ import {Account} from '../db/Account.js';
 import {User} from '../db/User.js';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import authMiddleware from '../middleware/index.js';
 
 const router=express.Router();
 
