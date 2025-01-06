@@ -83,32 +83,32 @@ router.get("/bulk", async (req, res) => {
   })
 })
 router.put('/update/:id', async (req, res) => {
-  console.log('PUT request received at /api/v2/update-user-details/:id');
-
   const id = req.params.id;
-  const updates = req.body; 
-
+  console.log(req.body);
   try {
-    const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, {firstName:req.body}, {
+      new: true,
+    });
     if (!updatedUser) {
+      console.log('No document found with ID:', id);
       return res.status(404).json({
         msg: 'User not found',
       });
     }
+
+    console.log('Updated User:', updatedUser);
 
     res.status(200).json({
       msg: 'User updated successfully',
       data: updatedUser,
     });
   } catch (error) {
-    console.error(error);
+    console.error('Error occurred:', error.message);
     res.status(500).json({
       msg: 'Something went wrong',
       error: error.message,
     });
   }
 });
-
 
 export default router;
