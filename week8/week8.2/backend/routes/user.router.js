@@ -27,11 +27,11 @@ router.post('/signup', async (req, res) => {
       msg: "email already taken/Inputs are inavlid"
     })
   }
-  const userid=user._id;
+  const userid = user._id;
 
   await Account.create({
-    userId:userid,
-    balance:1*Math.random()*1000,
+    userId: userid,
+    balance: 1 * Math.random() * 1000,
   })
   const newuser = await User.create(req.body);
   console.log(newuser);
@@ -73,15 +73,42 @@ router.get("/bulk", async (req, res) => {
       }
     ]
   })
-
   res.json({
     user: users.map(user => ({
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      username: users.username,
+      firstName: users.firstName,
+      lastName: users.lastName,
       _id: user._id
     }))
   })
 })
+router.put('/update/:id', async (req, res) => {
+  console.log('PUT request received at /api/v2/update-user-details/:id');
+
+  const id = req.params.id;
+  const updates = req.body; 
+
+  try {
+    const updatedUser = await User.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        msg: 'User not found',
+      });
+    }
+
+    res.status(200).json({
+      msg: 'User updated successfully',
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      msg: 'Something went wrong',
+      error: error.message,
+    });
+  }
+});
+
 
 export default router;
