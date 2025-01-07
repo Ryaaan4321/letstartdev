@@ -1,3 +1,4 @@
+import axios from "axios";
 function main() {
     fetch('https://jsonplaceholder.typicode.com/posts').then(async (response) => {
         const json = await response.json();
@@ -10,4 +11,12 @@ async function maina() {
     const data =await response.json();
     console.log(data);
 }
-maina();
+// maina();
+
+function main1(){
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then((response)=>{
+        console.log(response.data);
+    })
+}
+main1();
