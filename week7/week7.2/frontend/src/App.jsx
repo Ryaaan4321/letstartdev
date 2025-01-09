@@ -1,16 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { RecoilRoot, useRecoilState, useRecoilValue } from "recoil";
+import { countAtom } from "./store/atoms/count";
 
 function App() {
-  
-
   return (
     <>
-      app is here bitch
+      <div>
+        <RecoilRoot>
+          <Count />
+        </RecoilRoot>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+function Count() {
+  console.log("count got rendered")
+  return (
+    <div>
+      <CountRender />
+      <Buttons />
+    </div>
+  );
+}
+function CountRender() {
+  console.log("count render got renderd")
+  const count = useRecoilValue(countAtom);
+  return (
+    <div>
+      <b>{count}</b>
+    </div>
+  );
+}
+function Buttons() {
+  const [count, setCount] = useRecoilState(countAtom);
+  return (
+    <>
+      <button
+        onClick={() => {
+          setCount(count+1)
+        }}
+      >
+        Increase
+      </button>
+      {count}
+      <button
+        onClick={() => {
+          setCount(count-1)
+        }}
+      >
+        Decrease
+      </button>
+    </>
+  );
+}
+
+export default App;
