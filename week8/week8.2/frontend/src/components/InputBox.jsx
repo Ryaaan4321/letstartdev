@@ -1,6 +1,6 @@
-export function InputBox({label,placeholder}){
+export function InputBox({label,placeholder,onChange}){
     return <div className="text-sm font-medium text-left py-2">
       {label}
-      <input placeholder={placeholder} className="w-full px-2 py-2 border rounded border-slate-200"></input>
+      <input onChange={onChange} placeholder={placeholder} className="w-full px-2 py-2 border rounded border-slate-200"></input>
     </div>
 }
