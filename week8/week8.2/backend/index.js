@@ -4,9 +4,11 @@ import userrouter from './routes/user.router.js'
 import accountrouter from './routes/account.router.js'
 import mongoose from 'mongoose';
 import dotnev from 'dotenv'
+import cors from 'cors'
 dotnev.config();
 
 const app=express();
+app.use(cors());
 
 app.use(express.json());
 app.use('/api/v1',authrouter);

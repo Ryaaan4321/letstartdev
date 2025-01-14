@@ -27,21 +27,21 @@ router.post('/signup', async (req, res) => {
       msg: "email already taken/Inputs are inavlid"
     })
   }
-  const userid = user._id;
-
-  await Account.create({
-    userId: userid,
-    balance: 1 * Math.random() * 1000,
-  })
   const newuser = await User.create(req.body);
   console.log(newuser);
   const token = jwt.sign({
     userId: User._id
   }, process.env.JWT_SECRET);
-  console.log(token);
+  
   res.json({
     msg: "user created succesfully",
     token: token
+  })
+  const userid = newuser._id;
+  console.log(userid, "user_id");
+  await Account.create({
+    userId: userid,
+    balance: 1 * Math.random() * 1000,
   })
 });
 router.post('/signin', async (req, res) => {
@@ -88,7 +88,7 @@ router.put('/update/:id', async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      req.body, 
+      req.body,
       { new: true, runValidators: true }
     );
 
