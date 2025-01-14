@@ -13,36 +13,49 @@ const signupSchema = zod.object({
   password: zod.string()
 })
 
-router.post('/signup', async (req, res) => {
-  const { firstname, lastname, username, password } = req.body;
-  const { success } = signupSchema.safeParse(req.body);
+router.post("/signup", async (req, res) => {
+  const { success } = signupBody.safeParse(req.body);
   if (!success) {
-    res.status(501).json({
-      msg: "the input data is invalid"
-    })
+    return res.status(411).json({
+      message: "Incorrect inputs",
+    });
   }
-  const user = User.findOne({ username });
-  if (user._id) {
-    return res.json({
-      msg: "email already taken/Inputs are inavlid"
-    })
+
+  const existingUser = await User.findOne({
+    username: req.body.username,
+  });
+
+  if (existingUser) {
+    return res.status(411).json({
+      message: "Email already taken",
+    });
   }
-  const newuser = await User.create(req.body);
-  console.log(newuser);
-  const token = jwt.sign({
-    userId: User._id
-  }, process.env.JWT_SECRET);
-  
-  res.json({
-    msg: "user created succesfully",
-    token: token
-  })
-  const userid = newuser._id;
-  console.log(userid, "user_id");
+
+  const { username, firstName, lastName, password } = req.body;
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hashSync(password, salt);
+  const newUser = await User.create({
+    username,
+    firstName,
+    lastName,
+    password: hashedPassword,
+  });
+  const userId = newUser._id;
   await Account.create({
-    userId: userid,
-    balance: 1 * Math.random() * 1000,
-  })
+    userId,
+    balance: parseInt(Math.random() * 10000),
+  });
+  const token = jwt.sign(
+    {
+      userId,
+    },
+    process.env.JWT_SECRET
+  );
+  res.status(200).json({
+    message: "User created successfully",
+    token: token,
+  });
 });
 router.post('/signin', async (req, res) => {
   const { username, password } = req.body;

@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "San Francisco";
+    src: url("/path-to-your-font-files/san-francisco.woff2") format("woff2");
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
