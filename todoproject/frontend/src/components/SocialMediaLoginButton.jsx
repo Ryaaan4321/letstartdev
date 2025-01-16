@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { TiSocialFacebook } from "react-icons/ti";
 import { FaSquareXTwitter } from "react-icons/fa6";
+import { RiAppleFill } from "react-icons/ri";
 
 export function SocialMediaLoginButton() {
   return (
@@ -13,6 +14,7 @@ export function SocialMediaLoginButton() {
         <div><FaGithub/></div>
         <div><TiSocialFacebook/></div>
         <div><FaSquareXTwitter/></div>
+        <div><RiAppleFill/></div>
       </div>
     </div>
   );
