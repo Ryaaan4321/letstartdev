@@ -3,7 +3,7 @@ import zod from 'zod'
 import { User } from '../db/User.js'
 import jwt from 'jsonwebtoken'
 import { Account } from '../db/Account.js';
-
+import bcrypt from 'bcryptjs';
 const router = expres.Router();
 
 const signupSchema = zod.object({
@@ -14,7 +14,7 @@ const signupSchema = zod.object({
 })
 
 router.post("/signup", async (req, res) => {
-  const { success } = signupBody.safeParse(req.body);
+  const { success } = signupSchema.safeParse(req.body);
   if (!success) {
     return res.status(411).json({
       message: "Incorrect inputs",
@@ -33,7 +33,7 @@ router.post("/signup", async (req, res) => {
 
   const { username, firstName, lastName, password } = req.body;
 
-  const salt = await bcrypt.genSalt(10);
+  const salt =10;
   const hashedPassword = await bcrypt.hashSync(password, salt);
   const newUser = await User.create({
     username,
@@ -52,6 +52,7 @@ router.post("/signup", async (req, res) => {
     },
     process.env.JWT_SECRET
   );
+  console.log(process.env.JWT_SECRET);
   res.status(200).json({
     message: "User created successfully",
     token: token,
@@ -59,6 +60,7 @@ router.post("/signup", async (req, res) => {
 });
 router.post('/signin', async (req, res) => {
   const { username, password } = req.body;
+  console.log(req.body ,"req body form signin")
   const validUser = await User.findOne({ username: username });
   const validPassword = await User.findOne({ password: password });
   if (!validPassword || !validUser) {
