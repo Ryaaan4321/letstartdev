@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import { Heading } from "../components/Heading";
+import { SubHeading } from "../components/SubHeading";
 
 function Signup() {
   return (
     <>
       <div className=" flex flex-col items-center ">
         <div className="shadow-md m-4 p-5 mt-12">
-          <Heading label={Signup}/>
+          <Heading label={"Signup"}/>
+          <SubHeading label={"Please enter your crednetials to create your"}/>
+          <SubHeading label={" Only Fans Account"}/>
           <div className="flex flex-col mt-4 space-y-3 w-96">
             <input
               type="text"
