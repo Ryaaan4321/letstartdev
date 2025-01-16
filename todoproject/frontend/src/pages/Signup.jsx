@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import { Heading } from "../components/Heading";
 
 function Signup() {
   return (
     <>
       <div className=" flex flex-col items-center ">
         <div className="shadow-md m-4 p-5 mt-12">
-          <p className="text-black-800 text-4xl "> Signup</p>
+          <Heading label={Signup}/>
           <div className="flex flex-col mt-4 space-y-3 w-96">
             <input
               type="text"
