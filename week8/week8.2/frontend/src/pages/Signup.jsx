@@ -44,8 +44,7 @@ export const Signup = () => {
         localStorage.setItem('token', data.token);
         navigate('/dashboard');
       } else {
-        console.error('Sign-up failed:', await response.text());
-        alert('Sign-up failed.');
+        console.error('failed:', await response.text());
       }
     } catch (error) {
       console.error('Error during sign-up:', error);
@@ -80,7 +79,9 @@ export const Signup = () => {
             label="Password"
           />
           <div className="pt-4">
-            <Button onClick={handleSignUp} label="Sign up" />
+            <Button onClick={handleSignUp}
+            label="Sign up"
+            />
           </div>
           <BottomWarning
             label="Already have an account?"
