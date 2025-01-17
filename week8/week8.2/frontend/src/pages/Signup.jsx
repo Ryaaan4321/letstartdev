@@ -7,8 +7,8 @@ import { SubHeading } from '../components/SubHeading';
 import { useNavigate } from 'react-router-dom';
 
 export const Signup = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export const Signup = () => {
   }, [navigate]);
 
   const handleSignUp = async () => {
-    if (!firstName || !lastName || !username || !password) {
+    if (!firstname || !lastname || !username || !password) {
       alert('Please fill in all fields.');
       return;
     }
@@ -32,9 +32,9 @@ export const Signup = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          firstName,
-          lastName,
           username,
+          firstname,
+          lastname,
           password,
         }),
       });
@@ -60,6 +60,11 @@ export const Signup = () => {
           <Heading label="Sign up" />
           <SubHeading label="Enter your information to create an account" />
           <InputBox
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            label="Username"
+          />
+          <InputBox
             onChange={(e) => setFirstName(e.target.value)}
             placeholder="First Name"
             label="First Name"
@@ -68,11 +73,6 @@ export const Signup = () => {
             onChange={(e) => setLastName(e.target.value)}
             placeholder="Last Name"
             label="Last Name"
-          />
-          <InputBox
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Email"
-            label="Email"
           />
           <InputBox
             onChange={(e) => setPassword(e.target.value)}

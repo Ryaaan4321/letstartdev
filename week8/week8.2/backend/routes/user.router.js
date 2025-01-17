@@ -31,14 +31,14 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-  const { username, firstName, lastName, password } = req.body;
+  const { username, firstname, lastname, password } = req.body;
 
   const salt =10;
   const hashedPassword = await bcrypt.hashSync(password, salt);
   const newUser = await User.create({
     username,
-    firstName,
-    lastName,
+    firstname,
+    lastname,
     password: hashedPassword,
   });
   const userId = newUser._id;
