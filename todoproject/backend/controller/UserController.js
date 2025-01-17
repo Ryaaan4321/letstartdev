@@ -28,7 +28,7 @@ export const usignup = async function (req, res) {
 // console.log(process.env.JWT_SECRET)
 export const usignin = async function (req, res) {
     try {
-        const { username, email, password } = req.body;
+        const { email, password } = req.body;
 
         const validUser = await User.findOne({ email } );
         if (!validUser) {
