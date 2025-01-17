@@ -25,12 +25,12 @@ export const usignup = async function (req, res) {
         res.status(500).json({ msg: "An error occurred during signup" });
     }
 };
-
+// console.log(process.env.JWT_SECRET)
 export const usignin = async function (req, res) {
     try {
         const { username, email, password } = req.body;
 
-        const validUser = await User.findOne({ $or: [{ username }, { email }] });
+        const validUser = await User.findOne({ email } );
         if (!validUser) {
             return res.status(404).json({ msg: "Invalid credentials" });
         }
