@@ -1,4 +1,4 @@
-import mongoose, { Schema }  from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const UserSchema = new mongoose.Schema({
@@ -78,6 +78,11 @@ const AdminSchema = new Schema({
 
 
 const TodoSchema = new Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     title: {
         type: String,
         required: true,
@@ -114,7 +119,7 @@ const TodoSchema = new Schema({
 
 }, { timestamps: true });
 
-export const User=mongoose.model('User',UserSchema);
-export const Admin=mongoose.model('Admin',AdminSchema);
-export const Todo=mongoose.model('Todo',TodoSchema);
+export const User = mongoose.model('User', UserSchema);
+export const Admin = mongoose.model('Admin', AdminSchema);
+export const Todo = mongoose.model('Todo', TodoSchema);
 
