@@ -1,73 +1,62 @@
-import express from 'express'
-import { User } from '../db/schema.js'
-import { Admin } from '../db/schema.js'
-import bcryptjs from 'bcryptjs'
-import bodyParser from 'body-parser'
-import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
-dotenv.config()
+import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { User } from '../db/schema.js';
 
+dotenv.config();
 
 export const usignup = async function (req, res) {
     try {
-        const firstname = req.body.firstname;
-        const lastname = req.body.lastname;
-        const username = req.body.username;
-        const email = req.body.email;
-        const password = req.body.password;
+        const { firstname, lastname, username, email, password } = req.body;
         const hashedPassword = await bcryptjs.hash(password, 10);
-        const newuser = await User.create({
-            firstname: firstname,
-            lastname: lastname,
-            username: username,
-            email: email,
-            password: hashedPassword
-        })
-        newuser.save();
-        console.log(newuser);
-        res.status(201).json({
-            msg: newuser
-        })
-    } catch (error) {
-        res.status(500).json({
-            msg: "an error occured"
-        })
-    }
 
+        const newuser = await User.create({
+            firstname,
+            lastname,
+            username,
+            email,
+            password: hashedPassword
+        });
+
+        console.log("User created:", newuser);
+        res.status(201).json({ msg: newuser });
+    } catch (error) {
+        console.error('Signup Error:', error);
+        res.status(500).json({ msg: "An error occurred during signup" });
+    }
 };
 
 export const usignin = async function (req, res) {
     try {
         const { username, email, password } = req.body;
-        const validUser = await User.findOne({ username });
-        const validEmail = await User.findOne({ email });
-        if (!validUser || !validEmail) {
-            return res.status(404).json({
-                msg: "Invalid credentials",
-            });
+
+        const validUser = await User.findOne({ $or: [{ username }, { email }] });
+        if (!validUser) {
+            return res.status(404).json({ msg: "Invalid credentials" });
         }
         const isPasswordValid = await bcryptjs.compare(password, validUser.password);
         if (!isPasswordValid) {
-            return res.status(404).json({
-                msg: "Invalid credentials",
-            });
+            return res.status(401).json({ msg: "Invalid credentials" });
         }
-        const secret_key=process.env.JWT_SECRET || "bhadwesecretkeydekhega"
-        const token = jwt.sign({ id: validUser._id }, secret_key, { expiresIn: '1h' });
-        console.log(token);
-        const expiry_Date = new Date(Date.now() + 3600000); 
+        const secret_key = process.env.JWT_SECRET;
+        if (!secret_key) {
+            console.warn("JWT_SECRET is not defined. Using default value.");
+        }
+        const token = jwt.sign({ id: validUser._id }, secret_key || "default_secret_key", { expiresIn: '1h' });
         const { password: hashedPassword, ...userdata } = validUser._doc;
+        const expiry_Date = new Date(Date.now() + 3600000); 
         res.cookie('access_token', token, {
             httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
             expires: expiry_Date,
         })
         .status(200)
-        .json(userdata);
-    } catch (error) {
-        console.error('Signin Error:', error.message);
-        res.status(500).json({
-            msg: 'An error occurred during signin',
-            error: error.message,
+        .json({
+            message: "Signin successful",
+            user: userdata
         });
+    } catch (error) {
+        console.error('Signin Error:', error);
+        res.status(500).json({ msg: "An error occurred during signin", error: error.message });
     }
 };
