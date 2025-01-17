@@ -1,11 +1,10 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
-import userrouter from './routes/userrouter.js'; // Ensure correct path
+import userrouter from './routes/userrouter.js'; 
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cookieParser());
 
