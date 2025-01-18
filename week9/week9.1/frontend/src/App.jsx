@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 
-function App() {
+function useCount() {
   const [count, setCount] = useState(true);
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setCount(false);
-    }, 10000);
-  },[]);
-  return (
-    <>
-      {count===true?<MyComponenet/>:""}
-    </>
-  );
+    }, 1000);
+
+    return () => clearTimeout(timer); 
+  }, []);
+  return count;
 }
-function MyComponenet() {
+
+function App() {
+  const counts = useCount();
+  return counts ? <MyComponent /> : ""; 
+}
+
+function MyComponent() {
   useEffect(() => {
-    return () => {};
   }, []);
   return <div>from inside the component</div>;
 }
+
 export default App;
