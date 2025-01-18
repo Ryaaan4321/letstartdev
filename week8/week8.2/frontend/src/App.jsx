@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter,Route,Routes } from 'react-router-dom'
 import { Signup } from './pages/Signup'
 import { SignIn } from './pages/SignIn'
-import { AppBar } from './components/AppBar'
+import { AppBar } from './components/AppBar.jsx'
 function App() {
   return (
     <>
