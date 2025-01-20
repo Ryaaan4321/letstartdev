@@ -28,27 +28,6 @@ function useTodos(n) {
   return { todos, loading };
 }
 
-// function App() {
-//   const [ todos, loading ] = useTodos(3);
-
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <h1>Todos</h1>
-//       <ul>
-//         {todos.map((todo) => (
-//           <li key={todo.id}>
-//             <strong>{todo.title}</strong> -{" "}
-//             {todo.completed ? "Completed" : "Incomplete"}
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
 function Loader() {
   return (
     <div role="status">
@@ -73,11 +52,39 @@ function Loader() {
   );
 }
 
+function useIsOnline() {
+  const [isOnline, setIsOnline] = useState(window.navigator.onLine);
+  useEffect(() => {
+    window.addEventListener("online", ()=>{
+      setIsOnline(true);
+    });
+    window.addEventListener("offline", ()=>{
+      setIsOnline(false)
+    });
+  }, [isOnline]);
+  return isOnline;
+}
 function App() {
-  const { todos, loading } = useTodos(3); // Call hook with a 3-second interval
+  const isOnline=useIsOnline;
+  if(isOnline){
+    return (
+      <div>
+      <button className="bg-green-500  px-2 py-2 rounded-lg"></button>
+      <span>You are online</span>
+    </div>
+    )
+  }
+  return (
+    <div>
+      you are  offline
+    </div>
+  )
+}
+function Napp() {
+  const { todos, loading } = useTodos(3);
 
   if (loading) {
-    return <Loader />; // Show loading message while data is being fetched
+    return <Loader />;
   }
 
   return (
