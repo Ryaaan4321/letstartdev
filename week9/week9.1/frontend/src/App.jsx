@@ -111,7 +111,8 @@ function useInterval(fn, delay) {
     setInterval(() => {
       fn();
     }, delay);
-  }, []);
+  }, [fn,delay]);
+  return ()=>clearInterval();
 }
 function App() {
   const [count, setCount] = useState(0);
