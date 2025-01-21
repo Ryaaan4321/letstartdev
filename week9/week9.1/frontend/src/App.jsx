@@ -55,30 +55,26 @@ function Loader() {
 function useIsOnline() {
   const [isOnline, setIsOnline] = useState(window.navigator.onLine);
   useEffect(() => {
-    window.addEventListener("online", ()=>{
+    window.addEventListener("online", () => {
       setIsOnline(true);
     });
-    window.addEventListener("offline", ()=>{
-      setIsOnline(false)
+    window.addEventListener("offline", () => {
+      setIsOnline(false);
     });
   }, [isOnline]);
   return isOnline;
 }
-function App() {
-  const isOnline=useIsOnline;
-  if(isOnline){
+function GApp() {
+  const isOnline = useIsOnline;
+  if (isOnline) {
     return (
       <div>
-      <button className="bg-green-500  px-2 py-2 rounded-lg"></button>
-      <span>You are online</span>
-    </div>
-    )
+        <button className="bg-green-500  px-2 py-2 rounded-lg"></button>
+        <span>You are online</span>
+      </div>
+    );
   }
-  return (
-    <div>
-      you are  offline
-    </div>
-  )
+  return <div>you are offline</div>;
 }
 function Napp() {
   const { todos, loading } = useTodos(3);
@@ -108,6 +104,21 @@ function MyComponent() {
   }, []);
 
   return <div>from inside the component</div>;
+}
+
+function useInterval(fn, delay) {
+  useEffect(() => {
+    setInterval(() => {
+      fn();
+    }, delay);
+  }, []);
+}
+function App() {
+  const [count, setCount] = useState(0);
+  useInterval(() => {
+    setCount(count + 1);
+  }, 1000);
+  return <>Here You go {count}</>;
 }
 
 export default App;
