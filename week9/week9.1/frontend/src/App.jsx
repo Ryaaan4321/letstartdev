@@ -1,6 +1,6 @@
 import axios from "axios";
 import { set } from "mongoose";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 
 function useTodos(n) {
   const [todos, setTodos] = useState([]);
@@ -106,20 +106,51 @@ function MyComponent() {
   return <div>from inside the component</div>;
 }
 
+
+
 function useInterval(fn, delay) {
+  const savedCallback = useRef();
+
+  // Save the latest function in the ref
   useEffect(() => {
-    setInterval(() => {
-      fn();
-    }, delay);
-  }, [fn,delay]);
-  return ()=>clearInterval();
+    savedCallback.current = fn;
+  }, [fn]);
+
+  useEffect(() => {
+    if (delay !== null) {
+      const tick = () => savedCallback.current();
+      const id = setInterval(tick, delay);
+
+      // Cleanup the interval on unmount or when delay changes
+      return () => clearInterval(id);
+    }
+  }, [delay]);
 }
-function App() {
+function PApp() {
   const [count, setCount] = useState(0);
   useInterval(() => {
     setCount(count + 1);
   }, 1000);
   return <>Here You go {count}</>;
+}
+function useDebounce(value,timeout){
+  const [debouncedValue,setDebouncedValue]=useState(value); 
+  useEffect(()=>{
+    setTimeout(() => {
+      setDebouncedValue(value);
+    }, timeout);
+   },[value]);
+}
+function App(){
+  const [value,setValue]=useState('');
+  const debouncedValue=useDebounce(value,500);
+  return (
+    <div>
+      {/* <input type="text" onChange={(e)=>setValue(e.target.value)}/> */}
+      <input type="text" onChange={(e)=>setValue(e.target.value)}></input>
+      Debounced Value is {value}
+    </div>
+  )
 }
 
 export default App;
