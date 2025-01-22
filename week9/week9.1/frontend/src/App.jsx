@@ -139,18 +139,23 @@ function useDebounce(value,timeout){
     setTimeout(() => {
       setDebouncedValue(value);
     }, timeout);
+    return ()=>clearTimeout();
    },[value]);
+   return debouncedValue;
 }
-function App(){
-  const [value,setValue]=useState('');
-  const debouncedValue=useDebounce(value,500);
+function App() {
+  const [value, setValue] = useState("");
+  const debouncedValue = useDebounce(value, 500);
   return (
     <div>
-      {/* <input type="text" onChange={(e)=>setValue(e.target.value)}/> */}
-      <input type="text" onChange={(e)=>setValue(e.target.value)}></input>
-      Debounced Value is {value}
+      <input
+        type="text"
+        onChange={(e) => setValue(e.target.value)}
+        value={value}
+      />
+      <p>Debounced Value is: {debouncedValue}</p>
     </div>
-  )
+  );
 }
 
 export default App;
