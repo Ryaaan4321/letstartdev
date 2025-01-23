@@ -12,4 +12,22 @@ function sum1(a:any,b:any):any{
 function sum2(a:number,b:number):any{
     return a+b;
 }
-console.log(sum1(1,2)+sum2(1,2));
+// console.log(sum1("sum of the ","aryan is  = ")+sum2(1,2));
+function boolcheck(a:any):boolean{
+    if(a>18)return true;
+    return false;
+}
+// console.log(boolcheck(11));
+function callback(a:any):any{
+    return setTimeout(() => {
+        a();
+    }, 10000);
+}
+// this also works as the same
+function callback1(a:()=>void):any{
+    return setTimeout(() => {
+        a();
+    }, 2000);
+}
+callback(()=>console.log("hello from the callback"));
+callback1(()=>console.log("hmlo hmlo from the second callback"));
