@@ -29,5 +29,20 @@ function callback1(a:()=>void):any{
         a();
     }, 2000);
 }
-callback(()=>console.log("hello from the callback"));
-callback1(()=>console.log("hmlo hmlo from the second callback"));
+// callback(()=>console.log("hello from the callback"));
+// callback1(()=>console.log("hmlo hmlo from the second callback"));
+
+interface User{
+    firstname:string,
+    lastname:string,
+    age:number
+};
+
+function printUserr(user:User){
+    if(user.age>18){
+        return true;
+    }
+    return false;
+    
+}
+console.log(printUserr({firstname:"aryan",lastname:"ghghg",age:10}));
