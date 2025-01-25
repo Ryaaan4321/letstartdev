@@ -33,17 +33,17 @@ function Greet(name: GreetArg) {
 type Manager = {
   name: string,
   age: number
-  isBitch:boolean
+  isBitch: boolean
 }
 type Employee = {
   name: string,
-  age:number,
+  age: number,
   isBitch: boolean
 }
 type CompanyEmployee = Manager | Employee;
 type companyEmployee2 = Manager & Employee;
 
-function GreetEmployee({Employee}:{Employee:companyEmployee2}) {
+function GreetEmployee({ Employee }: { Employee: companyEmployee2 }) {
   return (
     <>
       <h1>{Employee.name}</h1>
@@ -52,6 +52,30 @@ function GreetEmployee({Employee}:{Employee:companyEmployee2}) {
     </>
   )
 }
+
+
+interface User {
+  firstname: string,
+  lastname: string,
+  age: number
+};
+
+function checkk(props: User[]) {
+  return props.filter(x => x.age >= 18);
+}
+console.log(checkk([
+  {
+    firstname: "pe pe",
+    lastname: "aryan",
+    age: 20
+  },
+  {
+    firstname: "aryan",
+    lastname: "aryan",
+    age: 17
+  }
+]));
+
 function App() {
   return (
     <>
