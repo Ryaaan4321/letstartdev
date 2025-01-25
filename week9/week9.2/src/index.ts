@@ -35,7 +35,8 @@ function callback1(a:()=>void):any{
 interface User{
     firstname:string,
     lastname:string,
-    age:number
+    age:number,
+    email?:string //to check the optional parameter
 };
 
 function printUserr(user:User){
@@ -45,4 +46,17 @@ function printUserr(user:User){
     return false;
     
 }
+interface User1{
+    firstname:string,
+    lastname:string,
+    age:number,
+    email?:string
+}
+function checkWithProps(props:User1){
+    if(props.age>18){
+        return true;
+    }
+    return false;
+}
+console.log(checkWithProps({firstname:"aryan",lastname:"ghghg",age:10}));
 console.log(printUserr({firstname:"aryan",lastname:"ghghg",age:10}));
