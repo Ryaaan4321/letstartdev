@@ -115,6 +115,25 @@ function DoSomething(dir:Direction){
 }
 
 
+function identity<T>(arg:T):T{
+  return arg;
+}
+
+let p1=identity<string>('aryan');
+let p2=identity<number>(25);
+
+function findMin<T>(arr:T[]):T{
+  let mn=0;
+  for(let i=0;i<arr.length;i++){
+    if(arr[i]<arr[mn]){
+      mn=i;
+    }
+  }
+  return arr[mn];
+}
+let mn=findMin<number>([1,9,3,4,5,6,7,8]);
+console.log("mn element is = " , mn);
+
 
 
 function App() {
