@@ -114,8 +114,11 @@ function DoSomething(dir:Direction){
   }
 }
 
-DoSomething(Direction.Up);
+
+
+
 function App() {
+  console.log("382");
   return (
     <>
       <RenderTodo title="aryan" descreption="this is test" completed={false} />
@@ -126,5 +129,28 @@ function App() {
 }
 
 
+// if u are looking into this than most probably u got this what i am tryin to do in this code fuk it why i used the 
+// express in this codebase heheheheh
+// import express from 'express';
+// const app=express();
+
+// DoSomething(Direction.Up);
+// enum Response{
+//   success=201,
+//   notFound=404,
+//   error=500
+// };
+
+// app.get('/',(req,res)=>{
+//   if(res.status==='ok'){
+//     res.send(Response.success).json({
+//       message:"all ok"
+//     })
+//   }if(res.status==='not found'){
+//     res.send(Response.notFound).json({
+//       message:"not found"
+//     })
+//   }
+// })
 
 export default App
