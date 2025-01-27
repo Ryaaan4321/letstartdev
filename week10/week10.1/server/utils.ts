@@ -5,3 +5,5 @@ export async function getClient(){
     await client.connect();
     return client;
 } 
+
+// psql -U aryan -d neondb
