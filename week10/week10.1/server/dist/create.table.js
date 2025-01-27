@@ -14,23 +14,40 @@ function createTable() {
     return __awaiter(this, void 0, void 0, function* () {
         const client = yield (0, utils_1.getClient)();
         const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        email TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL
-      );
-    `;
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      email TEXT UNIQUE NOT NULL,
+      password TEXT NOT NULL
+    );
+  `;
         yield client.query(createTableQuery);
         const createTodoQuery = `
-      CREATE TABLE IF NOT EXISTS todos (
-        id SERIAL PRIMARY KEY,
-        title TEXT NOT NULL,
-        user_id INTEGER REFERENCES users(id),
-        done BOOLEAN DEFAULT FALSE
-      );
-    `;
+    CREATE TABLE IF NOT EXISTS todos (
+      id SERIAL PRIMARY KEY,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL,
+      user_id INTEGER REFERENCES users(id),
+      done BOOLEAN DEFAULT FALSE
+    );
+  `;
         yield client.query(createTodoQuery);
         console.log("Tables created successfully");
     });
 }
+function createEntries() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const client = yield (0, utils_1.getClient)();
+        const insertUserText = `INSERT INTO users(email, password) VALUES ($1, $2) RETURNING id`;
+        const userValues = ["jkka@gmail.com", "pepepep"];
+        const response = yield client.query(insertUserText, userValues);
+        const insertTodoText = `
+    INSERT INTO todos(title, description, user_id, done)
+    VALUES ($1, $2, $3, $4)
+  `;
+        const todoValues = ["Buy groceries", "Milk and bread", response.rows[0].id, false];
+        yield client.query(insertTodoText, todoValues);
+        console.log("Entries created successfully");
+    });
+}
 createTable();
+createEntries();
