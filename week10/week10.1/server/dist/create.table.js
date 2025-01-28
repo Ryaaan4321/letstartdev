@@ -14,23 +14,23 @@ function createTable() {
     return __awaiter(this, void 0, void 0, function* () {
         const client = yield (0, utils_1.getClient)();
         const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      email TEXT  NOT NULL,
-      password TEXT NOT NULL,
-      CONSTRAINT users_email_key UNIQUE (email)
-    );
-  `;
+        CREATE TABLE IF NOT EXISTS users (
+            id SERIAL PRIMARY KEY,
+            email TEXT NOT NULL,
+            password TEXT NOT NULL,
+            CONSTRAINT users_email_key UNIQUE (email)
+        );
+    `;
         yield client.query(createTableQuery);
         const createTodoQuery = `
-    CREATE TABLE IF NOT EXISTS todos (
-      id SERIAL PRIMARY KEY,
-      title TEXT NOT NULL,
-      description TEXT NOT NULL,
-      user_id INTEGER REFERENCES users(id),
-      done BOOLEAN DEFAULT FALSE
-    );
-  `;
+        CREATE TABLE IF NOT EXISTS todos (
+            id SERIAL PRIMARY KEY,
+            title TEXT NOT NULL,
+            description TEXT NOT NULL,
+            user_id INTEGER REFERENCES users(id),
+            done BOOLEAN DEFAULT FALSE
+        );
+    `;
         yield client.query(createTodoQuery);
         console.log("Tables created successfully");
     });

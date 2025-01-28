@@ -13,14 +13,13 @@ const utils_1 = require("./utils");
 function createEntries() {
     return __awaiter(this, void 0, void 0, function* () {
         const client = yield (0, utils_1.getClient)();
-        const insertUserText = `INSERT INTO users(email,password)
-   VALUES($1,$2) RETURNING id`;
-        const userValues = ['johnnndol@mail.com', 'hashedpassword'];
-        let response = yield client.query(insertUserText, userValues);
-        const insertTodoText = `INSERT INTO todos(title,descreption,user_id,done) VALUES ($1,$2,$3,$4) RETURNING ID`;
-        const todoValue = [`Buy buy`, 'milkkkk', response.rows[0].id, false];
+        const insertUserText = `INSERT INTO users(email, password) VALUES($1, $2) RETURNING id`;
+        const userValues = ['jlmmmllllllllllllllljjjjff@mail.com', 'hashedpassword'];
+        const response = yield client.query(insertUserText, userValues);
+        const insertTodoText = `INSERT INTO todos(id,title, description, user_id, done) VALUES ($1, $2, $3, $4) RETURNING id`;
+        const todoValue = ['Buy buy', 'milkkkk', response.rows[0].id, false];
         yield client.query(insertTodoText, todoValue);
-        console.log("enterries created");
+        console.log("Entries created");
     });
 }
 createEntries();
