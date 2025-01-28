@@ -35,29 +35,4 @@ function createTable() {
         console.log("Tables created successfully");
     });
 }
-function createEntries() {
-    return __awaiter(this, void 0, void 0, function* () {
-        const client = yield (0, utils_1.getClient)();
-        const checkUserText = `SELECT id FROM users WHERE email = $1`;
-        const userValues = ["lllglglglglglglggla@gmail.com"];
-        const userCheck = yield client.query(checkUserText, userValues);
-        let userId;
-        if (userCheck.rows.length === 0) {
-            const insertUserText = `INSERT INTO users(email, password) VALUES ($1, $2) RETURNING id`;
-            const response = yield client.query(insertUserText, ["pka@gmail.com", "pepepep"]);
-            userId = response.rows[0].id;
-        }
-        else {
-            userId = userCheck.rows[0].id;
-        }
-        const insertTodoText = `
-    INSERT INTO todos(title, description, user_id, done)
-    VALUES ($1, $2, $3, $4)
-  `;
-        const todoValues = ["Buy groceries", "Milk and bread", userId, false];
-        yield client.query(insertTodoText, todoValues);
-        console.log("Entries created successfully");
-    });
-}
 createTable();
-createEntries();
