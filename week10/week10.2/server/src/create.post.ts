@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma=new PrismaClient();
+const prisma=new PrismaClient({log:['info','query','error','warn']});
 
 async function main() {
     await prisma.post.create({
