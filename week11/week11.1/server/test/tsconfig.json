@@ -6,3 +6,6 @@
 	"include": ["./**/*.ts", "../worker-configuration.d.ts"],
 	"exclude": []
 }
+
+// npx wrangler login to login to the cloudflare page
+// npx wrangler whoami to get the information that who was logged in
