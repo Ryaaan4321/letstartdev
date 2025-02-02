@@ -11,3 +11,30 @@ function sumOfAge(updatedProps:UpdatedOptional){
 }
 console.log(sumOfAge({name:"sam",age:12,email:"aa"}));
 console.log(sumOfAge({name:"paul",age:12}));
+
+type Foodie={
+    readonly name:string,
+    readonly age:number,
+    email:string,
+    password:string
+}
+const food:Foodie={
+    name:"ata",
+    age:12,
+    email: "ata@example.com",
+    password: "securepassword"
+}
+
+// food.name="aryan"
+food.email="aaagmil.com"
+
+
+// records and the map to define the structure of the object;
+
+type  U=Record<string,number>;// in this case the string is the key and the number is the value;
+type Users=Record<string,{age:number,name:string}>// lets suppose this is the structure of our object;
+const user:Users={
+    "a1":{age:10,name:"aaa"},
+    "a2":{age:90,name:"hjhjhjhjh"}
+};
+console.log(user);
