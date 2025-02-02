@@ -1,3 +1,6 @@
+import { APIPromise } from 'openai/core';
+import z from 'zod';
+// const app=express();
 interface User{
     name:string,
     age:number,
@@ -61,5 +64,23 @@ type ExcludeEvent=Exclude<EventType,'scroll'>;
 const handleEvent=(event:ExcludeEvent)=>{
     console.log(`Handling event = ${event}`);
 };
-handleEvent('mousemove');
+// handleEvent('mousemove');
 
+// ONE THING TO REMEBER IS THAT PICK IS USED IN THE OBJECT TO PICK THOSE SPECFIC ELEMENTS AND EXCLUDE IS TO
+// EXCLUDE THE SPECIFIC LITERALS CHECK THE CODE FOR THAT
+
+
+const userProfileSchema=z.object({
+    name:z.string().min(1),
+    email:z.string().min(1),
+    password:z.string().min(1)
+})
+
+type finalSchema=z.infer<typeof userProfileSchema>; // thats how i can define the zod schema;
+
+
+// app.put('/update',(req,res)=>{
+//   const updatedBody:finalSchema=req
+//   if(updatedBody.email || updatedBody.name || updatedBody.password)
+
+// })
