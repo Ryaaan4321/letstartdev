@@ -33,8 +33,28 @@ food.email="aaagmil.com"
 
 type  U=Record<string,number>;// in this case the string is the key and the number is the value;
 type Users=Record<string,{age:number,name:string}>// lets suppose this is the structure of our object;
-const user:Users={
-    "a1":{age:10,name:"aaa"},
-    "a2":{age:90,name:"hjhjhjhjh"}
+const us: Users = {
+    "a1": { age: 10, name: "aaa" },
+    "a2": { age: 90, name: "hjhjhjhjh" }
 };
-console.log(user);
+
+// console.log(user);
+
+
+interface newUser{
+    name:string,
+    age:string,
+    email:string
+}
+const mp=new Map<string,newUser>();
+mp.set("na",{name:"aa",age:"aa",email:"aa"});
+mp.set("nb",{name:"ab",age:"abbb",email:"jkl"});
+
+// for (const [key, value] of mp) {
+//     console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
+// }
+
+for (const [key ,value] of mp){
+    console.log(`${key} value : ${JSON.stringify(value)}`);
+}
+
