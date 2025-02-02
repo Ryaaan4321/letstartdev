@@ -50,11 +50,16 @@ const mp=new Map<string,newUser>();
 mp.set("na",{name:"aa",age:"aa",email:"aa"});
 mp.set("nb",{name:"ab",age:"abbb",email:"jkl"});
 
-// for (const [key, value] of mp) {
-//     console.log(`Key: ${key}, Value: ${JSON.stringify(value)}`);
+// for (const [key ,value] of mp){
+//     console.log(`${key} value : ${JSON.stringify(value)}`);
 // }
 
-for (const [key ,value] of mp){
-    console.log(`${key} value : ${JSON.stringify(value)}`);
-}
+// exclude;
+ 
+type EventType='click'|'scroll'|'mousemove';
+type ExcludeEvent=Exclude<EventType,'scroll'>;
+const handleEvent=(event:ExcludeEvent)=>{
+    console.log(`Handling event = ${event}`);
+};
+handleEvent('mousemove');
 
