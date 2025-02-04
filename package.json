@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.11.11",
+    "create-turbo": "^2.4.0",
     "prisma": "^6.3.0"
   }
 }
