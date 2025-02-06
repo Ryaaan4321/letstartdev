@@ -15,3 +15,12 @@ async function createTable() {
     console.log("resutl is =" , result);    
 }
 createTable();
+
+async function insertUserData(username: string, password: string, email: string) {
+    await client.connect();
+    const result = await client.query(`INSERT INTO userss (username,password,email)
+        VALUES('${username}' , '${password}' ,'${email}')`,)
+
+    console.log("resutl is =", result);
+}
+insertUserData('aryan' ,'arrr@gmail.com' ,'aaaaaaaa');
