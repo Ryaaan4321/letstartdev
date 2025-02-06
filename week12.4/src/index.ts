@@ -23,4 +23,12 @@ async function insertUserData(username: string, password: string, email: string)
 
     console.log("resutl is =", result);
 }
+
 insertUserData('aryan' ,'arrr@gmail.com' ,'aaaaaaaa');
+
+async function getAllUsers(){
+    await client.connect();
+    const result=await client.query(`select * from userss`);
+    console.log(result);
+}
+getAllUsers();
