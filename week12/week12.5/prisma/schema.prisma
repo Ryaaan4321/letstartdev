@@ -15,19 +15,19 @@ datasource db {
 model User{
   id Int @id @default(autoincrement())
   firstname String ?
-  lastname String ?
-  username String @unique
-  password String
+  lastname  String ?
+  username  String @unique
+  password  String
+  email     String
 }
 model Todo{
-  user_id Int @id
-  title String 
+  user_id     Int @id
+  title       String 
   descreption String
-  completed Boolean @default(false)
-  userid Int 
+  completed   Boolean @default(false)
+  userid      Int 
 }
   // userId  Int
   // user    User  @relation(fields: [userId], references: [id], onDelete: Cascade) if we want to define the foriegn key in the 
   // todo table with the user than thats how we can do this
 
-  
