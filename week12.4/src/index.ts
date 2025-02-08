@@ -64,10 +64,25 @@ async function getAllUsers() {
     }
 }
 
+async function getDetails(){
+    try{
+        const result = await client.query(`
+            SELECT userss.id, userss.username, userss.email, ADDRESS.city, ADDRESS.country, ADDRESS.street, ADDRESS.pincode 
+            FROM userss 
+            JOIN ADDRESS ON userss.id = ADDRESS.user_id
+        `);
+        console.log(result.rows);
+    } catch(err) {
+        console.error(err);
+    }
+}
+
+
 (async () => {
-    await createTable();
-    await insertUserData("testuser", "testpassword", "test@example.com");
-    await insertAddressData(1, "New York", "USA", "123 Main St", "10001");
+    // await createTable();
+    // await insertUserData("testuser", "testpassword", "test@example.com");
+    // await insertAddressData(1, "New York", "USA", "123 Main St", "10001");
     await getAllUsers();
+    await getDetails();
     await client.end(); 
 })();
