@@ -6,11 +6,13 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["public", "postgres"]
 }
 model User{
   id Int @id @default(autoincrement())
@@ -19,6 +21,8 @@ model User{
   username  String @unique
   password  String
   email     String
+
+  @@schema("postgres")
 }
 model Todo{
   user_id     Int @id
@@ -26,6 +30,7 @@ model Todo{
   descreption String
   completed   Boolean @default(false)
   userid      Int 
+  @@schema("postgres")
 }
   // userId  Int
   // user    User  @relation(fields: [userId], references: [id], onDelete: Cascade) if we want to define the foriegn key in the 
