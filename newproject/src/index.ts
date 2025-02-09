@@ -32,6 +32,18 @@ app.post('/createuser',async(req:Request,res:Response)=>{
     res.json(newuser);
     console.log("newuser = ",newuser);
 })
+app.post('/createtodo',async(req:Request,res:Response)=>{
+    const { title, description, iscompleted, userid } = req.body;
+    const newtodo = await prisma.todo.create({
+        data: {
+            title,
+            description,
+            iscompleted: iscompleted ?? false,
+            userid
+        }
+    });
+    console.log(newtodo);
+})
 
 
 app.listen(3000,()=>{
