@@ -21,6 +21,7 @@ model User{
   username  String @unique
   password  String
   email     String
+  todos     Todo[]
 
   @@schema("postgres")
 }
@@ -30,9 +31,8 @@ model Todo{
   descreption String
   completed   Boolean @default(false)
   userid      Int 
+  user        User  @relation(fields: [userid], references: [id], onDelete: Cascade)
   @@schema("postgres")
 }
-  // userId  Int
-  // user    User  @relation(fields: [userId], references: [id], onDelete: Cascade) if we want to define the foriegn key in the 
-  // todo table with the user than thats how we can do this
+
 

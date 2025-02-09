@@ -19,6 +19,20 @@ async function insertUser(username: string, password: string, firstname: string,
         await prisma.$disconnect();
     }
 }
+async function getTodoAndUserDetails(userid:number){
+    const response=await prisma.todo.findMany({
+        where:{
+            user_id:userid
+        },
+        select:{
+            user_id:true,
+            title:true,
+            descreption:true,
+            user:true
+        }
+    })
+    console.log(response);
+}
+getTodoAndUserDetails(1);
 
-
-insertUser("ar","arr","arr","arrrr","arr@gmail.com");
+// insertUser("ar","arr","arr","arrrr","arr@gmail.com");
