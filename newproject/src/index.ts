@@ -13,7 +13,9 @@ app.get('/finduser/:id', async (req: Request, res: Response) => {
     const response = await prisma.user.findUnique({
         where: { id: userid },
         select:{
-            todos:true
+            username:true,
+            email:true,
+            password:true
         }
     })
     res.json({
@@ -52,6 +54,14 @@ app.post('/createtodo', async (req: Request, res: Response) => {
         }
     });
     console.log(newtodo);
+})
+app.post('/signin',async(req:Request,res:Response)=>{
+    const {email,password}=req.body;
+    const response=await prisma.user.findUnique({
+        where:{email},
+        include:{todos:true},
+    });
+
 })
 
 
