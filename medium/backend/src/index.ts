@@ -1,11 +1,23 @@
 import { Hono } from 'hono'
+import { PrismaClient } from '@prisma/client/extension';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
-const app = new Hono()
+const app = new Hono<{
+  Bindings:{
+    DATABASE_URL:string
+  }
+}>
 
 app.get('/', (c) => {
   return c.text('Hmlo Hmloo');
 })
+
 app.post('/api/signup',(c)=>{
+  const dburl=c.env.DATABASE_URL;
+  console.log(dburl);
+  const prisma=new PrismaClient({
+    dataSourceUrl:c.env.DATABASE_URL
+  }).$extends(withAccelerate());
   return c.text("hmlo hmlo");
 })
 app.post('/api/signin',(c)=>{
