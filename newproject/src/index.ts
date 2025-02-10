@@ -12,23 +12,33 @@ app.get('/finduser/:id', async (req: Request, res: Response) => {
     const userid = parseInt(req.params.id);
     const response = await prisma.user.findUnique({
         where: { id: userid },
-        select:{
-            username:true,
-            email:true,
-            password:true
+        select: {
+            username: true,
+            email: true,
+            password: true,
+            todos: true,
+            id: true
         }
+
     })
     res.json({
         msg: response
     })
 
 })
-app.get('/gettodos',async(req:Request,res:Response)=>{
-    const response=await prisma.todo.findMany({});
+app.get('/finallusers', async (req: Request, res: Response) => {
+    const response = await prisma.user.findMany({});
     res.json({
-        msg:response
+        msg: response
     })
 })
+app.get('/gettodos', async (req: Request, res: Response) => {
+    const response = await prisma.todo.findMany({});
+    res.json({
+        msg: response
+    })
+})
+
 app.post('/createuser', async (req: Request, res: Response) => {
     const { username, email, firstname, lastname, password } = req.body;
     const newuser = await prisma.user.create({
@@ -55,15 +65,31 @@ app.post('/createtodo', async (req: Request, res: Response) => {
     });
     console.log(newtodo);
 })
-app.post('/signin',async(req:Request,res:Response)=>{
-    const {email,password}=req.body;
-    const response=await prisma.user.findUnique({
-        where:{email},
-        include:{todos:true},
+app.post('/signin', async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+    const response = await prisma.user.findUnique({
+        where: { email },
+        include: { todos: true },
     });
 
 })
 
+app.put('/updateduser/:id',async(req:Request,res:Response)=>{
+    const uid=Number(req.params.id);
+    const {username,firstname,lastname,email}=req.body;
+    const response=await prisma.user.update({
+        where:{
+            id:uid
+        },
+        data:{
+            ...(username &&  {username}),
+            ...(firstname  && {firstname}),
+            ...(lastname   && {lastname}),
+            ...(email      && {email})
+        }
+    })
+    console.log(response);
+})
 
 app.listen(3000, () => {
     console.log("hmlo hmlo");
