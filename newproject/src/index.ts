@@ -74,21 +74,25 @@ app.post('/signin', async (req: Request, res: Response) => {
 
 })
 
-app.put('/updateduser/:id',async(req:Request,res:Response)=>{
-    const uid=Number(req.params.id);
-    const {username,firstname,lastname,email}=req.body;
-    const response=await prisma.user.update({
-        where:{
-            id:uid
-        },
-        data:{
-            ...(username &&  {username}),
-            ...(firstname  && {firstname}),
-            ...(lastname   && {lastname}),
-            ...(email      && {email})
-        }
-    })
-    console.log(response);
+app.put('/updateduser/:id', async (req: Request, res: Response) => {
+    try {
+        const uid = Number(req.params.id);
+        const { username, firstname, lastname, email } = req.body;
+        const response = await prisma.user.update({
+            where: {
+                id: uid
+            },
+            data: {
+                ...(username && { username }),
+                ...(firstname && { firstname }),
+                ...(lastname && { lastname }),
+                ...(email && { email })
+            }
+        })
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 app.listen(3000, () => {
