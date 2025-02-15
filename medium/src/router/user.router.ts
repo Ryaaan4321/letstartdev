@@ -90,3 +90,18 @@ userrouter.get('/getallblog/:id', async (c) => {
         msg:response
     })
 })
+userrouter.get('/getalluser',async(c)=>{
+    const prisma = new PrismaClient({
+        datasources: {
+            db: { url: c.env.DATABASE_URL }
+        }
+    }).$extends(withAccelerate());
+    const response=await prisma.user.findMany({
+        select:{
+            blog:true
+        }
+    })
+    return c.json({
+        msg:response
+    })
+})
