@@ -47,18 +47,24 @@ app.post('/signin', async (c) => {
   try {
     const user = await prisma.user.findFirst({
       where: {
-        username:body.username,
-        password:body.password
+        username: body.username,
+        password: body.password
       }
     })
-    if(!user){
+    if (!user) {
       c.status(403);
       return c.json({
-        message:"not found"
+        message: "not found"
       })
     }
+    const jwt = sign({
+      id: user.email
+    }, c.env.JWT_SECRET)
+    return c.json({ message: jwt }, 201);
   } catch (error) {
-
+    return c.json({
+      message: "there is an error"
+    }, 404);
   }
 })
 app.get('/', async (c) => {
