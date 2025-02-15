@@ -1,12 +1,12 @@
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 import { Hono } from 'hono';
-import { decode,verify,sign } from 'hono/jwt';
+import { decode, verify, sign } from 'hono/jwt';
 
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string;
-    JWT_SECRET:string
+    JWT_SECRET: string
   };
 }>();
 app.post('/signup', async (c) => {
@@ -27,16 +27,41 @@ app.post('/signup', async (c) => {
       }
     })
     const jwt = await sign({
-      id:newuser.id
-    },c.env.JWT_SECRET)
+      id: newuser.id
+    }, c.env.JWT_SECRET)
     return c.json({ message: jwt }, 201);
   } catch (error) {
-    console.log(error );
+    console.log(error);
     return c.status(411);
   }
 
 });
-app.get('/',async(c)=>{
+app.post('/signin', async (c) => {
+  const body = await c.req.json();
+  console.log(body);
+  const prisma = new PrismaClient({
+    datasources: {
+      db: { url: c.env.DATABASE_URL }
+    }
+  }).$extends(withAccelerate());
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        username:body.username,
+        password:body.password
+      }
+    })
+    if(!user){
+      c.status(403);
+      return c.json({
+        message:"not found"
+      })
+    }
+  } catch (error) {
+
+  }
+})
+app.get('/', async (c) => {
   return c.text("hmlo hmlo bitch")
 })
 
