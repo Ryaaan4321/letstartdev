@@ -5,10 +5,10 @@ import { withAccelerate } from '@prisma/extension-accelerate';
 
 export const userrouter = new Hono<{
     Bindings: {
-      DATABASE_URL: string;
-      JWT_SECRET: string
+        DATABASE_URL: string;
+        JWT_SECRET: string
     };
-  }>();
+}>();
 
 userrouter.post('/signup', async (c) => {
     console.log("Signup route hit!");
@@ -67,4 +67,26 @@ userrouter.post('/signin', async (c) => {
             message: "there is an error"
         }, 404);
     }
+})
+userrouter.get('/getallblog/:id', async (c) => {
+    const id = parseInt(c.req.param('id'));
+    const prisma = new PrismaClient({
+        datasources: {
+            db: { url: c.env.DATABASE_URL }
+        }
+    }).$extends(withAccelerate());
+    const response=await prisma.user.findUnique({
+        where:{
+            id:id
+        },
+        select:{
+            blog:true,
+            email:true,
+            username:true,
+            name:true
+        }
+    })
+    return c.json({
+        msg:response
+    })
 })

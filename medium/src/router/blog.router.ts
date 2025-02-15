@@ -28,7 +28,7 @@ blogrouter.post('/create', async (c) => {
             }
         })
         return c.json({
-            msg:newblog
+            msg:newblog.id
         })
     } catch (error) {
 
