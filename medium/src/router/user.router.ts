@@ -75,33 +75,42 @@ userrouter.get('/getallblog/:id', async (c) => {
             db: { url: c.env.DATABASE_URL }
         }
     }).$extends(withAccelerate());
-    const response=await prisma.user.findUnique({
-        where:{
-            id:id
-        },
-        select:{
-            blog:true,
-            email:true,
-            username:true,
-            name:true
-        }
-    })
-    return c.json({
-        msg:response
-    })
+    try {
+        const response = await prisma.user.findUnique({
+            where: {
+                id: id
+            },
+            select: {
+                blog: true,
+                email: true,
+                username: true,
+                name: true
+            }
+        })
+        return c.json({
+            msg: response
+        })
+    }catch(e){
+        console.log(e);
+    }
+    
 })
-userrouter.get('/getalluser',async(c)=>{
+userrouter.get('/getalluser/:id', async (c) => {
     const prisma = new PrismaClient({
         datasources: {
             db: { url: c.env.DATABASE_URL }
         }
     }).$extends(withAccelerate());
-    const response=await prisma.user.findMany({
-        select:{
+    const id=parseInt(c.req.param('id'));
+    const response = await prisma.user.findFirst({
+        where:{id},
+        select: {
+            id:true,
+            email:true,
             blog:true
         }
     })
     return c.json({
-        msg:response
+        msg: response
     })
 })
