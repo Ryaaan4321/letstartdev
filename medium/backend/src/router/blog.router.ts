@@ -26,7 +26,7 @@ blogrouter.use('/*', async (c, next) => {
         }
     }
     catch (e) {
-        console.log(e);
+        console.log(e); 
         return c.json({
             msg: "there is an error on this auth middleware"
         })

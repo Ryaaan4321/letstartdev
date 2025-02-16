@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import {signinput} from '../zod'
+import {signininput} from '@fuccaryan/meidum-common'
 export const userrouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
@@ -15,7 +15,7 @@ userrouter.post('/signup', async (c) => {
     console.log("Signup route hit!");
     try {
         const body = await c.req.json();
-        const {success}=signinput.safeParse(body);
+        const {success}=signininput.safeParse(body);
         if(!success){
             c.status(411);
             c.json({
@@ -47,7 +47,7 @@ userrouter.post('/signup', async (c) => {
 });
 userrouter.post('/signin', async (c) => {
     const body = await c.req.json();
-    const {success}=signinput.safeParse(body);
+    const {success}=signininput.safeParse(body);
     if(!success){
         c.status(411);
         c.json({
