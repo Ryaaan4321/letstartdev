@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { sign, verify } from "hono/jwt";
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import {z} from 'zod';
+import { bloginput } from "../zod";
 export const blogrouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
@@ -12,12 +12,7 @@ export const blogrouter = new Hono<{
     };
 }>();
 
-const bloginput=z.object({
-    title:z.string(),
-    content:z.string(),
-    thumbnail:z.string(),
-    published:z.boolean()
-});
+
 
 blogrouter.use('/*', async (c, next) => {
     try {
