@@ -52,6 +52,13 @@ userrouter.post('/signup', async (c) => {
 });
 userrouter.post('/signin', async (c) => {
     const body = await c.req.json();
+    const {success}=signinput.safeParse(body);
+    if(!success){
+        c.status(411);
+        c.json({
+           msg:"inputs are not valid"
+        })
+    }
     console.log(body);
     const prisma = new PrismaClient({
         datasources: {
