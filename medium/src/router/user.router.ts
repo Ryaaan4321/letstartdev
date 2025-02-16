@@ -2,18 +2,31 @@ import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-
+import {z} from 'zod';
 export const userrouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
         JWT_SECRET: string
     };
 }>();
+const signinput=z.object({
+    email:z.string().email(),
+    username:z.string(),
+    name:z.string().optional(),
+    password:z.string().min(6)
+})
 
 userrouter.post('/signup', async (c) => {
     console.log("Signup route hit!");
     try {
         const body = await c.req.json();
+        const {success}=signinput.safeParse(body);
+        if(!success){
+            c.status(411);
+            c.json({
+               msg:"inputs are not valid"
+            })
+        }
         const prisma = new PrismaClient({
             datasources: {
                 db: { url: c.env.DATABASE_URL }
