@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SignupInput } from "@fuccaryan/meidum-common"
 import { ChangeEvent, useState } from "react";
+import axios from 'axios';
+import { BACKEND_URL } from "../config";
 interface labelInput {
     label: string,
     placeholder: string,
@@ -13,6 +15,17 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
         username: "",
         password: "",
     })
+    const navigate = useNavigate();
+    async function sendRequest() {
+        try {
+            const response = await axios.post(`${BACKEND_URL}/user/${type === "signup" ? "signup" : "signin"}`)
+            const jwt = response.data;
+            localStorage.setItem("token", jwt);
+            navigate('/blogs');
+        } catch (error) {
+
+        }
+    }
     return <div className="h-screen  flex justify-center flex-col">
         <div className="flex justify-center">
             <div className="">
@@ -30,7 +43,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                         </Link>
                     </div>
                     <div className="pt-10">
-                        <LabeledInput
+                        {type === "signup" ? <LabeledInput
                             label="Email"
                             placeholder="Enter your email"
                             onchange={(e) => {
@@ -39,7 +52,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                     email: e.target.value
                                 });
                             }}
-                        />
+                        /> : null}
                         <LabeledInput
                             label="Username"
                             placeholder="Enter your name"
