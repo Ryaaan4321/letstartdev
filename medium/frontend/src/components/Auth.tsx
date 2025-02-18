@@ -22,7 +22,12 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     </div>
                     <div className="text-slate-400 ">
                         {type === "signup" ? "Already have an account" : "Don't Have an Account"}
-                        <Link className="pl-2 underline" to={type == "signup" ? "/signup" : "/signin"}>{type === "signup" ? "Login" : "Signup"}</Link>
+                        <Link
+                            className="pl-2 underline"
+                            to={type === "signup" ? "/signin" : "/signup"}
+                        >
+                            {type === "signup" ? "Login" : "Signup"}
+                        </Link>
                     </div>
                     <div className="pt-10">
                         <LabeledInput
