@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { SignupInput } from "@fuccaryan/meidum-common"
+import { SignupInput } from '@fuccaryan/meidum-common'
 import { ChangeEvent, useState } from "react";
 import axios from 'axios';
 import { BACKEND_URL } from "../config";
@@ -18,12 +18,20 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const navigate = useNavigate();
     async function sendRequest() {
         try {
-            const response = await axios.post(`${BACKEND_URL}/user/${type === "signup" ? "signup" : "signin"}`)
+            const response = await axios.post(
+                `${BACKEND_URL}/user/${type === "signup" ? "signup" : "signin"}`,
+                postInputs
+            );
             const jwt = response.data;
-            localStorage.setItem("token", jwt);
-            navigate('/blogs');
+            if (jwt){
+                localStorage.setItem("token", jwt);
+                navigate('/blog');
+            }else{
+                throw new Error("Token not received");
+            }
         } catch (error) {
-
+            alert("Error sending the POST request");
+            console.error("Error:", error);
         }
     }
     return <div className="h-screen  flex justify-center flex-col">
@@ -74,7 +82,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                             }}
                             type={"password"}
                         />
-                        <button type="button" className="
+                        <button onClick={sendRequest}
+                            type="button" className="
                         w-full mt-2
                         text-white p bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-36 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">{type === "signup" ? "Sign Up" : "Sign In"}</button>
                     </div>
