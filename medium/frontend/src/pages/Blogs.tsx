@@ -1,6 +1,6 @@
 import { BlogCard } from '../components/BlogCard'
 export const Blogs = () => {
     return <div>
-        <BlogCard title='there is a title' content='there is a content' authorname='my name is author' publisheddate='23/10/2024'/>
+        <BlogCard title='How does this website will look like when aryan will make this' content='there is a content How does this website will look like when aryan will make this How does this website will look like when aryan will make this How does this website will look like when aryan will make this' authorname='Naam' publisheddate='23/10/2024'/>
     </div>
 }
