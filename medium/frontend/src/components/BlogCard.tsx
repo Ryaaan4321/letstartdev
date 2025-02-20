@@ -5,7 +5,7 @@ interface BlogCardProps {
     publisheddate: string
 }
 export const BlogCard = ({ authorname, title, content, publisheddate }: BlogCardProps) => {
-    return <div className="border border-slate-500 pb-4">
+    return <div className="p-7  border-b border-slate-500 pb-4">
         <div className="flex">
             <div className="flex justify-center flex-col">
                 <Avatar name="Author Name"/>
