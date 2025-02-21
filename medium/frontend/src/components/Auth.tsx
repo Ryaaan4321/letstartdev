@@ -23,8 +23,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 `${BACKEND_URL}/user/${type === "signup" ? 'signup' : 'signin'}`,
                 postInputs
             );    
-            console.log("response " ,response)
             const jwt = response.data;
+            console.log("jwt = ",jwt)
             if (jwt){
                 localStorage.setItem("token", jwt);
                 navigate('/blog');

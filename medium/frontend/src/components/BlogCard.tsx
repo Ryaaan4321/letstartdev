@@ -1,5 +1,3 @@
-import { AppBar } from "./AppBar"
-
 interface BlogCardProps {
     authorname: string,
     title: string,
@@ -35,11 +33,10 @@ export function Avatar({ name, size }: { name: string, size: string }) {
   overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 
   ${size === "small" ? "w-6 h-6" : "w-10 h-10"}`}
             >
-                <span className={`font-sm text-gray-600 dark:text-gray-300 ${size==="small" ?"text-sm":"text-md"}`}>{name.charAt(0)}</span>
+                <span className={`font-sm text-gray-600 dark:text-gray-300 ${size === "small" ? "text-sm" : "text-md"}`}>{name.charAt(0)}</span>
             </div>
         </div>
     )
-
 }
 function Circle() {
     return <div className="h-1 w-1 rounded-full bg-gray-400"></div>
