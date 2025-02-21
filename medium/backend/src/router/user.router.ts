@@ -140,3 +140,9 @@ userrouter.get('/getusersbulk',async(c)=>{
         msg:response
     })
 });
+
+// signin is happening with the name and the password 
+// signin is also happenign with the username and the password 
+// email && password
+// so what that said it says that something is wrong with my inputs 
+// and what are inputs they are the zod 

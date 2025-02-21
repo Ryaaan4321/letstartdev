@@ -13,22 +13,23 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const [postInputs, setPostInputs] = useState<SignupInput>({
         email: "",
         username: "",
+        // name:"",
         password: "",
     })
     const navigate = useNavigate();
     async function sendRequest() {
-        console.log("Backend url = ",BACKEND_URL);
+        console.log("Backend url = ", BACKEND_URL);
         try {
             const response = await axios.post(
                 `${BACKEND_URL}/user/${type === "signup" ? 'signup' : 'signin'}`,
                 postInputs
-            );    
+            );
             const jwt = response.data;
-            console.log("jwt = ",jwt)
-            if (jwt){
+            console.log("jwt = ", jwt)
+            if (jwt) {
                 localStorage.setItem("token", jwt);
                 navigate('/blog');
-            }else{
+            } else {
                 throw new Error("Token not received");
             }
         } catch (error) {
@@ -73,6 +74,16 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                 });
                             }}
                         />
+                        {/* <LabeledInput
+                            label="name"
+                            placeholder="Enter your name"
+                            onchange={(e) => {
+                                setPostInputs({
+                                    ...postInputs,
+                                    // name: e.target.value
+                                });
+                            }}
+                        /> */}
                         <LabeledInput
                             label="Password"
                             placeholder="Enter your password"
@@ -115,3 +126,6 @@ function LabeledInput({ label, placeholder, onchange, type }: labelInput) {
         </div>
     );
 }
+
+// fix the zod schema everything else is fixed i think becuase of the zod schema you are putting the wrong
+// input in the different fields and it is the reason why its is not gettign signup
