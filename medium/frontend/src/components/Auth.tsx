@@ -17,11 +17,13 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     })
     const navigate = useNavigate();
     async function sendRequest() {
+        console.log("Backend url = ",BACKEND_URL);
         try {
             const response = await axios.post(
-                `${BACKEND_URL}/user/${type === "signup" ? "signup" : "signin"}`,
+                `${BACKEND_URL}/user/${type === "signup" ? 'signup' : 'signin'}`,
                 postInputs
-            );
+            );    
+            console.log("response " ,response)
             const jwt = response.data;
             if (jwt){
                 localStorage.setItem("token", jwt);

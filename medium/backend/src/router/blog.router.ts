@@ -26,7 +26,7 @@ blogrouter.use('/*', async (c, next) => {
         }
     }
     catch (e) {
-        console.log(e); 
+        console.log(e);
         return c.json({
             msg: "there is an error on this auth middleware"
         })
@@ -71,7 +71,18 @@ blogrouter.get('/bulk', async (c) => {
                 db: { url: c.env.DATABASE_URL }
             }
         }).$extends(withAccelerate());
-        const bulkblogs = await prisma.blog.findMany();
+        const bulkblogs = await prisma.blog.findMany({
+            select: {
+                content: true,
+                title: true,
+                id: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
         return c.json(bulkblogs);
     } catch (error) {
         console.log(error);
@@ -87,22 +98,22 @@ blogrouter.put('/update/:id', async (c) => {
                 db: { url: c.env.DATABASE_URL }
             }
         }).$extends(withAccelerate());
-        const body =await c.req.json();
+        const body = await c.req.json();
         const id = parseInt(c.req.param('id'));
         const updatedData = await prisma.blog.update({
-           where:{id },
-           data:{
-            title:body.title,
-            content:body.content,
-            published:body.published
-           }
+            where: { id },
+            data: {
+                title: body.title,
+                content: body.content,
+                published: body.published
+            }
         })
         return c.json(
-            {msg:updatedData},201)
-    }catch(e){
+            { msg: updatedData }, 201)
+    } catch (e) {
         console.log(e);
         return c.json({
-            msg:"user not found"
-        },404)
+            msg: "user not found"
+        }, 404)
     }
 })

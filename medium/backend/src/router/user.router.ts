@@ -129,3 +129,14 @@ userrouter.get('/getalluser/:id', async (c) => {
         msg: response
     })
 })
+userrouter.get('/getusersbulk',async(c)=>{
+    const prisma=new PrismaClient({
+        datasources:{
+            db:{url:c.env.DATABASE_URL}
+        }
+    }).$extends(withAccelerate());
+    const response=await prisma.user.findMany({});
+    return c.json({
+        msg:response
+    })
+});
