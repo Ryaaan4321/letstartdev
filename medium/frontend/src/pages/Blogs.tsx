@@ -1,22 +1,31 @@
 import { AppBar } from '../components/AppBar'
 import { BlogCard } from '../components/BlogCard'
 import { useBlogs } from '../hooks'
+
 export const Blogs = () => {
-    const {loading,blog}=useBlogs();
-    if(loading){
-        return <div>Loading</div>
+    const { loading, blogs = [] } = useBlogs();
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
+
     return (
         <div>
-            <AppBar/>
+            <AppBar />
             <div className='flex justify-center'>
-                <div className=' max-w-xl'>
-                    <BlogCard title='How does this website will look like when aryan will make this' content='there is a content How does this website will look like when aryan will make this How does this website will look like when aryan will make this How does this website will look like when aryan will make this' authorname='Naam' publisheddate='23/10/2024' />
-                    <BlogCard title='How does this website will look like when aryan will make this' content='there is a content How does this website will look like when aryan will make this How does this website will look like when aryan will make this How does this website will look like when aryan will make this' authorname='Naam' publisheddate='23/10/2024' />
-                    <BlogCard title='How does this website will look like when aryan will make this' content='there is a content How does this website will look like when aryan will make this How does this website will look like when aryan will make this How does this website will look like when aryan will make this' authorname='Naam' publisheddate='23/10/2024' />
-                    <BlogCard title='How does this website will look like when aryan will make this' content='there is a content How does this website will look like when aryan will make this How does this website will look like when aryan will make this How does this website will look like when aryan will make this' authorname='Naam' publisheddate='23/10/2024' />
+                <div className='max-w-xl'>
+                    {/* {blogs.map(blog => ( */}
+                        {/* // <BlogCard  */
+                            // key={blog.id} 
+                            // title={blog.title} 
+                            // content={blog.content} 
+                            // authorname={blog.authorname} 
+                            // publisheddate={blog.publisheddate} 
+                        // />
+                    // ))
+                }
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

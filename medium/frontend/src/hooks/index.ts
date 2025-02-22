@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { BACKEND_URL } from '../config';
 export const useBlogs = () => {
     const [loading, setLoading] = useState(true);
-    const [blog, setBlog] = useState([]);
+    const [blogs, setBlogs] = useState([]);
     useEffect(() => {
         axios.get(`${BACKEND_URL}/blog/bulk`, {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
         }).then((response) => {
-                setBlog(response.data);
+                setBlogs(response.data.blogs);
                 setLoading(false);
             }).catch((error) => {
                 console.log(error);
@@ -18,7 +18,7 @@ export const useBlogs = () => {
     })
     return {
         loading,
-        blog
+        blogs
     }
 
 }

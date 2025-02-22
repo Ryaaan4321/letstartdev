@@ -23,10 +23,11 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 `${BACKEND_URL}/user/${type === "signup" ? 'signup' : 'signin'}`,
                 postInputs
             );
-            const jwt = response.data;
-            console.log("jwt = ", jwt)
+            const jwt = response.data
+            console.log("jwt = ", jwt.message)
             if (jwt) {
-                localStorage.setItem("token", jwt);
+                localStorage.setItem("token", jwt.message);
+                console.log(jwt);
                 navigate('/blog');
             } else {
                 throw new Error("Token not received");
@@ -53,7 +54,8 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                         </Link>
                     </div>
                     <div className="pt-10">
-                        {type === "signup" ? <LabeledInput
+                        {/* {type === "signup" ?  */}
+                        <LabeledInput
                             label="Email"
                             placeholder="Enter your email"
                             onchange={(e) => {
@@ -62,8 +64,9 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                     email: e.target.value
                                 });
                             }}
-                        /> : null}
-                        <LabeledInput
+                        />
+                        {/* //  : null} */}
+                        {/* <LabeledInput
                             label="Username"
                             placeholder="Enter your name"
                             onchange={(e) => {
@@ -72,7 +75,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                     username: e.target.value
                                 });
                             }}
-                        />
+                        /> */}
                         <LabeledInput
                             label="Password"
                             placeholder="Enter your password"

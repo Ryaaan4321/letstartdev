@@ -73,11 +73,12 @@ userrouter.post('/signin', async (c) => {
                 message: "not found"
             })
         }
-        const jwt = await sign({
+        const token = await sign({
             id: user.email
         }, c.env.JWT_SECRET)
-        return c.json({ message: user.id }, 201);
+        return c.json({ jwt: token });
     } catch (error) {
+        console.log(error);
         return c.json({
             message: "there is an error"
         }, 404);
