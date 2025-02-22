@@ -13,7 +13,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const [postInputs, setPostInputs] = useState<SignupInput>({
         email: "",
         username: "",
-        // name:"",
         password: "",
     })
     const navigate = useNavigate();
@@ -74,16 +73,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                 });
                             }}
                         />
-                        {/* <LabeledInput
-                            label="name"
-                            placeholder="Enter your name"
-                            onchange={(e) => {
-                                setPostInputs({
-                                    ...postInputs,
-                                    // name: e.target.value
-                                });
-                            }}
-                        /> */}
                         <LabeledInput
                             label="Password"
                             placeholder="Enter your password"
