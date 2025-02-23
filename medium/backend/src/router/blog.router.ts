@@ -128,3 +128,36 @@ blogrouter.put('/update/:id', async (c) => {
         }, 404)
     }
 })
+
+blogrouter.get('/:id', async (c) => {
+    try {
+        const prisma = new PrismaClient({
+            datasources: {
+                db: { url: c.env.DATABASE_URL }
+            }
+        }).$extends(withAccelerate());
+        const body = await c.req.json();
+        const id = c.req.param('id');
+        const BlogData = await prisma.blog.findFirst({
+            where: { id },
+            select:{
+                id:true,
+                title:true,
+                content:true,
+                author:{
+                    select:{
+                        name:true
+                    }
+                }
+            }
+            
+        })
+        return c.json(
+            { msg: BlogData }, 201)
+    } catch (e) {
+        console.log(e);
+        return c.json({
+            msg: "user not found"
+        }, 404)
+    }
+})
