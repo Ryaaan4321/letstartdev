@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { SignupInput } from '@fuccaryan/meidum-common'
+import { SignupInput, SigninInput } from '@fuccaryan/meidum-common'
 import { ChangeEvent, useState } from "react";
 import axios from 'axios';
 import { BACKEND_URL } from "../config";
@@ -10,9 +10,10 @@ interface labelInput {
     type?: string
 }
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
-    const [postInputs, setPostInputs] = useState<SignupInput>({
+    const [postInputs, setPostInputs] = useState({
         email: "",
         username: "",
+        name: "",
         password: "",
     })
     const navigate = useNavigate();
@@ -54,7 +55,28 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                         </Link>
                     </div>
                     <div className="pt-10">
-                        {/* {type === "signup" ?  */}
+                        {type === "signup" ?
+                            <LabeledInput
+                                label="Email"
+                                placeholder="Enter your email"
+                                onchange={(e) => {
+                                    setPostInputs({
+                                        ...postInputs,
+                                        email: e.target.value
+                                    });
+                                }}
+                            />
+                            : null}
+                        <LabeledInput
+                            label="Username"
+                            placeholder="Enter your name"
+                            onchange={(e) => {
+                                setPostInputs({
+                                    ...postInputs,
+                                    username: e.target.value
+                                });
+                            }}
+                        />
                         <LabeledInput
                             label="Email"
                             placeholder="Enter your email"
@@ -65,17 +87,6 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                                 });
                             }}
                         />
-                        {/* //  : null} */}
-                        {/* <LabeledInput
-                            label="Username"
-                            placeholder="Enter your name"
-                            onchange={(e) => {
-                                setPostInputs({
-                                    ...postInputs,
-                                    username: e.target.value
-                                });
-                            }}
-                        /> */}
                         <LabeledInput
                             label="Password"
                             placeholder="Enter your password"

@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { sign } from "hono/jwt";
 import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
-import {signininput} from '@fuccaryan/meidum-common'
+import {signininput,signupinput} from '@fuccaryan/meidum-common'
 export const userrouter = new Hono<{
     Bindings: {
         DATABASE_URL: string;
@@ -15,13 +15,7 @@ userrouter.post('/signup', async (c) => {
     console.log("Signup route hit!");
     try {
         const body = await c.req.json();
-        const {success}=signininput.safeParse(body);
-        if(!success){
-            c.status(411);
-            c.json({
-               msg:"inputs are not valid"
-            })
-        }
+
         const prisma = new PrismaClient({
             datasources: {
                 db: { url: c.env.DATABASE_URL }
@@ -29,7 +23,6 @@ userrouter.post('/signup', async (c) => {
         }).$extends(withAccelerate());
         const newuser = await prisma.user.create({
             data: {
-                name: body.name,
                 username: body.username,
                 email: body.email,
                 password: body.password,
@@ -41,19 +34,19 @@ userrouter.post('/signup', async (c) => {
         return c.json({ message: jwt }, 201);
     } catch (error) {
         console.log(error);
-        return c.status(411);
+        return c.json({message:"there is soemthing wrong with this signup routes"},500);
     }
 
 });
 userrouter.post('/signin', async (c) => {
     const body = await c.req.json();
-    const {success}=signininput.safeParse(body);
-    if(!success){
-        c.status(411);
-        c.json({
-           msg:"inputs are not valid"
-        })
-    }
+    // const {success}=signininput.safeParse(body);
+    // if(!success){
+    //     c.status(411);
+    //     c.json({
+    //        msg:"inputs are not valid"
+    //     })
+    // }
     console.log(body);
     const prisma = new PrismaClient({
         datasources: {
@@ -63,7 +56,7 @@ userrouter.post('/signin', async (c) => {
     try {
         const user = await prisma.user.findFirst({
             where: {
-                username: body.username,
+                email:body.email,
                 password: body.password
             }
         })
@@ -84,6 +77,7 @@ userrouter.post('/signin', async (c) => {
         }, 404);
     }
 })
+// the token is not geting defined in the brwoser that is the problem
 userrouter.get('/getallblog/:id', async (c) => {
     const id = parseInt(c.req.param('id'));
     const prisma = new PrismaClient({
@@ -142,8 +136,8 @@ userrouter.get('/getusersbulk',async(c)=>{
     })
 });
 
-// signin is happening with the name and the password 
-// signin is also happenign with the username and the password 
+// signin is happening with the email and the password 
 // email && password
 // so what that said it says that something is wrong with my inputs 
 // and what are inputs they are the zod 
+// the token is not geting defined in the brwoser that is the problem
