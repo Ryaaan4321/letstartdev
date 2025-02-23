@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { SignupInput, SigninInput } from '@fuccaryan/meidum-common'
+// import { SignupInput, SigninInput } from '@fuccaryan/meidum-common'
 import { ChangeEvent, useState } from "react";
 import axios from 'axios';
 import { BACKEND_URL } from "../config";

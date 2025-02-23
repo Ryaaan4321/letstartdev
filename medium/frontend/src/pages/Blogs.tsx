@@ -1,7 +1,6 @@
 import { AppBar } from '../components/AppBar'
 import { BlogCard } from '../components/BlogCard'
 import { useBlogs } from '../hooks'
-
 export const Blogs = () => {
     const { loading, blogs } = useBlogs();
 
