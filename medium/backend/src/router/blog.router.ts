@@ -14,28 +14,40 @@ export const blogrouter = new Hono<{
 
 blogrouter.use('/*', async (c, next) => {
     try {
-        const authheader = c.req.header("Authorization") || "";
-        const user = await verify(authheader, c.env.JWT_SECRET);
-        console.log(typeof user);
-        if (user) {
-            c.set("userId", user.id);
-            await next();
-            return;
+        const authheader = c.req.header('authorization') || c.req.header('Authorization');
+        // console.log("authheader from the blod middleware = ", authheader)
+        if (!authheader) {
+            return c.json({
+                message: "unauthorized from the blog middleware"
+            })
+        }
+        const token = authheader.split(" ")[1];
+        // console.log("token = ", token);
+        try {
+            const payload = await verify(token, c.env.JWT_SECRET);
+            console.log("payload fromt the blog middleware = ",payload);
+            if (payload) {
+                c.set('userId', payload.id);
+                await next();
+            }
+        } catch (error) {
+            return c.json({ message: "there is some error on this middleware" }, 401);
         }
     }
     catch (e) {
         console.log(e);
         return c.json({
             msg: "there is an error on this auth middleware"
-        })
+        }, 404)
     }
 })
 
 blogrouter.post('/create', async (c) => {
     try {
         const body = await c.req.json();
-        const userid = c.get("userId")
-        console.log("user from the post req = ", userid);
+        const userid = c.get("userId");
+        // console.log("type of the user id = ", typeof userid);
+        // console.log("user from the post req = ", userid);
         const prisma = new PrismaClient({
             datasources: {
                 db: { url: c.env.DATABASE_URL }
@@ -45,13 +57,13 @@ blogrouter.post('/create', async (c) => {
             data: {
                 title: body.title,
                 content: body.content,
-                thumbnail: body.thumbnail,
+                // thumbnail: body.thumbnail, i can add thumbnail any time i want,just chnage the blog schema run migration and redeploy it
                 published: body.published,
-                authorid: parseInt(userid)
+                authorid: userid
             }
         })
         return c.json({
-            msg: newblog.id
+            newblog
         }, 200)
     } catch (error) {
         console.log(error);
@@ -81,6 +93,7 @@ blogrouter.get('/bulk', async (c) => {
                 }
             }
         });
+        console.log("type of the bulk blogs" , typeof bulkblogs);
         return c.json(bulkblogs);
     } catch (error) {
         console.log(error);
@@ -97,7 +110,7 @@ blogrouter.put('/update/:id', async (c) => {
             }
         }).$extends(withAccelerate());
         const body = await c.req.json();
-        const id = parseInt(c.req.param('id'));
+        const id = c.req.param('id');
         const updatedData = await prisma.blog.update({
             where: { id },
             data: {

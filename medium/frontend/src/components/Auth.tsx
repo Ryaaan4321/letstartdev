@@ -11,12 +11,20 @@ interface labelInput {
 }
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     const [postInputs, setPostInputs] = useState({
-        email: "",
-        username: "",
         name: "",
+        username: "",
+        email: "",
         password: "",
     })
     const navigate = useNavigate();
+    async function setToken(token:any){
+       if(!token){
+        console.log("no token provided");
+        return;
+       }
+       localStorage.setItem("token",`Bearer ${token}`);
+       console.log("token inside the settoken function");
+    }
     async function sendRequest() {
         console.log("Backend url = ", BACKEND_URL);
         try {
@@ -24,10 +32,9 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 `${BACKEND_URL}/user/${type === "signup" ? 'signup' : 'signin'}`,
                 postInputs
             );
-            const jwt = response.data
-            console.log("jwt = ", jwt.message)
+            const jwt = response.data.jwt;
             if (jwt) {
-                localStorage.setItem("token", jwt.message);
+                setToken(jwt);
                 console.log(jwt);
                 navigate('/blog');
             } else {
@@ -57,26 +64,26 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     <div className="pt-10">
                         {type === "signup" ?
                             <LabeledInput
-                                label="Email"
-                                placeholder="Enter your email"
+                                label="Name"
+                                placeholder="Enter your name"
                                 onchange={(e) => {
                                     setPostInputs({
                                         ...postInputs,
-                                        email: e.target.value
+                                        name: e.target.value
                                     });
                                 }}
                             />
                             : null}
-                        <LabeledInput
+                       { type==="signup"?<LabeledInput
                             label="Username"
-                            placeholder="Enter your name"
+                            placeholder="Enter your username"
                             onchange={(e) => {
                                 setPostInputs({
                                     ...postInputs,
                                     username: e.target.value
                                 });
                             }}
-                        />
+                        />:null}
                         <LabeledInput
                             label="Email"
                             placeholder="Enter your email"

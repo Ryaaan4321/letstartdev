@@ -15,7 +15,6 @@ userrouter.post('/signup', async (c) => {
     console.log("Signup route hit!");
     try {
         const body = await c.req.json();
-
         const prisma = new PrismaClient({
             datasources: {
                 db: { url: c.env.DATABASE_URL }
@@ -23,6 +22,7 @@ userrouter.post('/signup', async (c) => {
         }).$extends(withAccelerate());
         const newuser = await prisma.user.create({
             data: {
+                name:body.name,
                 username: body.username,
                 email: body.email,
                 password: body.password,
@@ -40,13 +40,6 @@ userrouter.post('/signup', async (c) => {
 });
 userrouter.post('/signin', async (c) => {
     const body = await c.req.json();
-    // const {success}=signininput.safeParse(body);
-    // if(!success){
-    //     c.status(411);
-    //     c.json({
-    //        msg:"inputs are not valid"
-    //     })
-    // }
     console.log(body);
     const prisma = new PrismaClient({
         datasources: {
@@ -67,7 +60,7 @@ userrouter.post('/signin', async (c) => {
             })
         }
         const token = await sign({
-            id: user.email
+            id: user.id
         }, c.env.JWT_SECRET)
         return c.json({ jwt: token });
     } catch (error) {
@@ -79,7 +72,7 @@ userrouter.post('/signin', async (c) => {
 })
 // the token is not geting defined in the brwoser that is the problem
 userrouter.get('/getallblog/:id', async (c) => {
-    const id = parseInt(c.req.param('id'));
+    const id = c.req.param('id');
     const prisma = new PrismaClient({
         datasources: {
             db: { url: c.env.DATABASE_URL }
@@ -94,7 +87,7 @@ userrouter.get('/getallblog/:id', async (c) => {
                 blog: true,
                 email: true,
                 username: true,
-                name: true
+                name:true
             }
         })
         return c.json({
@@ -111,7 +104,7 @@ userrouter.get('/getalluser/:id', async (c) => {
             db: { url: c.env.DATABASE_URL }
         }
     }).$extends(withAccelerate());
-    const id=parseInt(c.req.param('id'));
+    const id=c.req.param('id');
     const response = await prisma.user.findFirst({
         where:{id},
         select: {
