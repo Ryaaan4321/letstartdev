@@ -138,7 +138,7 @@ blogrouter.get('/:id', async (c) => {
         }).$extends(withAccelerate());
         const id = c.req.param("id");
         console.log("id from the get req of the blog",id)
-        const BlogData = await prisma.blog.findFirst({
+        const blog = await prisma.blog.findFirst({
             where: { id },
             select:{
                 id:true,
@@ -153,7 +153,7 @@ blogrouter.get('/:id', async (c) => {
             
         })
         return c.json(
-            { msg: BlogData }, 201)
+            { blog }, 201)
     } catch (e) {
         console.log(e);
         return c.json({

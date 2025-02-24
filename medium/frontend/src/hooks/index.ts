@@ -12,14 +12,14 @@ interface Blog {
 }
 export const useBlog = ({ id }: { id: string }) => {
 	const [loading, setLoading] = useState(true);
-	const [blog, setBlog] = useState<Blog>();
+	const [blog, setBlog] = useState();
     useEffect(() => {
         axios.get(`${BACKEND_URL}/blog/${id}`, {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
         }).then((response) => {
-            console.log("response data from the hook", response.data.blog)
+            console.log("response data from the hook", response.data)
             setBlog(response.data.blog);
             setLoading(false);
         }).catch((error) => {
