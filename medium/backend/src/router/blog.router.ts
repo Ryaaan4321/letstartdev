@@ -136,8 +136,8 @@ blogrouter.get('/:id', async (c) => {
                 db: { url: c.env.DATABASE_URL }
             }
         }).$extends(withAccelerate());
-        const body = await c.req.json();
-        const id = c.req.param('id');
+        const id = c.req.param("id");
+        console.log("id from the get req of the blog",id)
         const BlogData = await prisma.blog.findFirst({
             where: { id },
             select:{
